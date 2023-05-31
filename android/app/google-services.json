@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1025255703841",
+    "project_id": "universal-bb478",
+    "storage_bucket": "universal-bb478.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025255703841:android:c08364018191b59465ea60",
+        "android_client_info": {
+          "package_name": "com.eazytechno.universal_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025255703841-eg8sbkltf122koao4fthjov1kak2o1g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdSgFBxArpp33OZeX8JNsT5Rp5zMrjOXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025255703841-eg8sbkltf122koao4fthjov1kak2o1g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
