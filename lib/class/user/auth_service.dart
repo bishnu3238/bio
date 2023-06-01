@@ -143,6 +143,6 @@ class AuthService extends ChangeNotifier {
   }
 
   void intiDatabases() async {
-    userData = await Hive.openBox('user');
+    // userData = await Hive.openBox('user');
   }
 }
