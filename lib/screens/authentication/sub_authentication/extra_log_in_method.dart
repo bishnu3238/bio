@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sign_button/constants.dart';
 import 'package:sign_button/create_button.dart';
-import 'package:universal_lab/class/user/auth_service.dart';
+import 'package:universal_lab/class/user_services/auth_service.dart';
 
 class ExtraLogInMethode extends StatelessWidget {
   const ExtraLogInMethode({
@@ -11,20 +11,17 @@ class ExtraLogInMethode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthService>(
-      builder: (context, auth, _) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SignInButton.mini(
-                buttonType: ButtonType.google, onPressed: () => auth.googleSignIn()),
-            SignInButton.mini(
-                buttonType: ButtonType.mail, onPressed: () {}),
-            SignInButton.mini(
-                buttonType: ButtonType.facebook, onPressed: () {}),
-          ],
-        );
-      }
-    );
+    return Consumer<AuthService>(builder: (context, auth, _) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SignInButton.mini(
+              buttonType: ButtonType.google,
+              onPressed: () => auth.googleSignIn()),
+          SignInButton.mini(buttonType: ButtonType.mail, onPressed: () {}),
+          SignInButton.mini(buttonType: ButtonType.facebook, onPressed: () {}),
+        ],
+      );
+    });
   }
 }

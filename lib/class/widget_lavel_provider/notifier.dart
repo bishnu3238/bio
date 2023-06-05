@@ -8,6 +8,8 @@ class Notifier extends ChangeNotifier {
 
   int _navIndex = 0;
 
+  bool _loading = false;
+
   int _pageIndicator = 0;
 
   UserType _userType = UserType.User;
@@ -28,7 +30,7 @@ class Notifier extends ChangeNotifier {
         break;
       case 1:
         // todo:
-      // openFiltterSheet(context);
+        // openFiltterSheet(context);
         break;
       case 2:
         // todo:
@@ -66,6 +68,14 @@ class Notifier extends ChangeNotifier {
     _userType = value;
     notifyListeners();
   }
+
+  bool get loading => _loading;
+
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
 
   int get navIndex => _navIndex;
 

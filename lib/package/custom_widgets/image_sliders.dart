@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/app_info.dart';
-import 'package:universal_lab/class/model/cart.dart';
+import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 import 'package:universal_lab/package/animation/page_indicatior.dart';
 
@@ -31,41 +31,25 @@ class ImageSlider extends StatelessWidget {
                 pauseAutoPlayOnTouch: true,
                 onPageChanged: (ind, _) => notifier.pageIndicator = ind,
               ),
-              items: AppConstant.bannerImages.map(
+              items: bannerImages.map(
                 (i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return InkWell(
                         onTap: () => onTap(i),
                         child: Card(
-                            margin: const EdgeInsets.fromLTRB(10, 5, 10, 15),
-                            shape: RoundedRectangleBorder(
+                          margin: const EdgeInsets.fromLTRB(10, 5, 10, 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: SizedBox(
+                            width: double.maxFinite,
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(25),
+                              child: Image.asset(i, fit: BoxFit.fill),
                             ),
-                            child: SizedBox(
-                              width: double.maxFinite,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.asset("assets/images/$i",
-                                    fit: BoxFit.fill),
-                              ),
-                            )
-
-                            // Container(
-                            //   width: double.maxFinite,
-                            //   margin: const EdgeInsets.all(0.5),
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(20),
-                            //     image: DecorationImage(
-                            //       fit: BoxFit.fill,
-                            //       image: AssetImage("assets/images/$i"),
-                            //     ),
-                            //     gradient: const LinearGradient(
-                            //       colors: [Colors.blue, Colors.lightBlue],
-                            //     ),
-                            //   ),
-                            // ),
-                            ),
+                          ),
+                        ),
                       );
                     },
                   );
@@ -82,7 +66,7 @@ class ImageSlider extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(
                   children: List.generate(
-                    AppConstant.bannerImages.length,
+                    bannerImages.length,
                     (index) => PageIndicator(index: index),
                   ).toList(),
                 ),

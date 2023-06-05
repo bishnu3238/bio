@@ -4,47 +4,47 @@ import 'items_model.dart';
 
 class BrandModel {
   final String id;
-  final String brandName;
+  final String name;
   final String image;
-  final List<ItemModel>? items;
+  // final List<ItemModel>? items;
 
 //<editor-fold desc="Data Methods">
   const BrandModel({
     required this.id,
-    required this.brandName,
+    required this.name,
     required this.image,
-    this.items,
+    // this.items,
   });
 
   BrandModel copyWith({
     String? id,
-    String? brandName,
+    String? name,
     String? image,
-    List<ItemModel>? items,
+    // List<ItemModel>? items,
   }) {
     return BrandModel(
       id: id ?? this.id,
-      brandName: brandName ?? this.brandName,
+      name: name ?? this.name,
       image: image ?? this.image,
-      items: items ?? this.items,
+      // items: items ?? this.items,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'brandName': brandName,
+      'name': name,
       'image': image,
-      'items': items!.map((e) => e.toMap())
+      // 'items': items!.map((e) => e.toMap())
     };
   }
 
   factory BrandModel.fromMap(Map<String, dynamic> map) {
     return BrandModel(
       id: map['id'] as String,
-      brandName: map['brandName'] as String,
+      name: map['brandName'] as String,
       image: map['image'] as String,
-      items: [],
+      // items: [],
     );
   }
 

@@ -1,21 +1,22 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/screens/home_page/home/setting.dart';
+import 'package:universal_lab/screens/home_page/sub_home_page/notification/notification.dart';
+import 'sub_home_page/my_orders/my_orders.dart';
+import 'sub_home_page/settings/setting.dart';
 
 import '../../class/widget_lavel_provider/notifier.dart';
 import '../../package/custom_snack_bar.dart';
 import '../../package/size_config.dart';
-import 'home/category.dart';
-import 'home/home.dart';
-import 'sub_home_page/bottom_nav_bar.dart';
+import 'sub_home_page/category/category.dart';
+import 'sub_home_page/home/home.dart';
+import 'bottom_nav_bar/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   // static bool isFirst = false;
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     CustomSnackBar.initialize(context);
 
     return Consumer<Notifier>(
@@ -30,9 +31,9 @@ class HomePage extends StatelessWidget {
             body: [
               const Home(),
               const Category(),
-              SafeArea(child: Container(color: Colors.red, child: Text("tw"))),
-              SafeArea(child: Container(color: Colors.red, child: Text("th"))),
-              Settings()
+              const Notifications(),
+              const MyOrders(),
+              const Settings()
             ][index.navIndex],
             bottomNavigationBar: const BottomNavBar(),
           ),
@@ -42,15 +43,13 @@ class HomePage extends StatelessWidget {
   }
 
   Future<bool> _onWillPopScope(Notifier navIndex) async {
-
     if (navIndex.navIndex == 0) {
-      if (!navIndex.willPop) {
-        CustomSnackBar.showToast(
-            "tap again to exit the app", Colors.black38);
-        return false;
-      } else {
-        return true;
-      }
+      // if (!navIndex.willPop) {
+      //   CustomSnackBar.showToast("tap again to exit the app", Colors.black38);
+      //   return false;
+      // } else {
+      return true;
+      // }
     } else if (navIndex.navIndex == 1) {
       navIndex.navIndex = 0;
       return false;
@@ -60,10 +59,9 @@ class HomePage extends StatelessWidget {
     } else if (navIndex.navIndex == 3) {
       navIndex.navIndex = 2;
       return false;
-    } else if (navIndex.navIndex == 4) {
+    } else {
       navIndex.navIndex = 3;
       return false;
     }
-    return false;
   }
 }

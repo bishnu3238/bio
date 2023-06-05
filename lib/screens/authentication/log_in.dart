@@ -1,10 +1,13 @@
 import 'dart:developer';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pinput/pinput.dart';
-import '../../class/user/auth_service.dart';
+import 'package:provider/provider.dart';
+import 'package:universal_lab/class/master.dart';
+import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
+import 'package:universal_lab/package/custom_snack_bar.dart';
+import '../../class/user_services/auth_service.dart';
 import '../../package/custom_widgets/app_bars/simple_app_bar.dart';
 import 'sub_authentication/extra_log_in_method.dart';
 import '../../package/loading_button.dart';
@@ -27,23 +30,33 @@ class _LogInState extends State<LogIn> {
   AuthService auth = AuthService();
 
   @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+    BioCellar.initialize(context);
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _phone.dispose();
   }
 
   Future _logIn() async {
+    log("hello");
     try {
+      context.read<Notifier>().loading = true;
       await auth.sendVerificationCode(_phone.text, () {});
     } catch (e) {
-      log("-------------------------------------");
-      log(e.toString());
+      context.read<Notifier>().loading = false;
+
+      CustomSnackBar.awesomeSnack("title", "message", ContentType.failure);
+      log("****** Login error $e ******");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    AuthService.initialize(context);
     var theme = Theme.of(context).textTheme;
     var media = MediaQuery.of(context);
     return GestureDetector(
@@ -54,7 +67,7 @@ class _LogInState extends State<LogIn> {
           color: const Color(0xFF2874F0),
           title: "Universal Lab",
           icon: FontAwesomeIcons.xmark,
-          todo: () => Navigator.pop(context),
+          todo: () {},
         ),
         body: SingleChildScrollView(
           child: Container(

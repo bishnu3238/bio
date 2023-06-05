@@ -71,7 +71,7 @@ class CustomSnackBar {
         backgroundColor: color ?? Colors.green,
         duration: Duration(milliseconds: duration ?? 4000),
         content: SizedBox(
-            width: double.maxFinite, child: Text(massage, style: stlH3)),
+            width: double.maxFinite, child: Text(massage, style: stlH3())),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 8),
           side: BorderSide(color: Colors.brown.shade900),
@@ -106,6 +106,8 @@ class CustomSnackBar {
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
             title: title,
+            titleFontSize: 15,
+            messageFontSize: 20,
             message: message,
             contentType: type,
           ),

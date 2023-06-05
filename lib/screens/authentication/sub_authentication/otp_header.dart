@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpHeader extends StatelessWidget {
-  const OtpHeader({Key? key}) : super(key: key);
+  final String phoneNO;
+  const OtpHeader(this.phoneNO, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class OtpHeader extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          '+91 Phone Number',
+          phoneNO,
           style: GoogleFonts.ubuntu(
             fontSize: 16,
             color: const Color.fromRGBO(30, 60, 87, 1),

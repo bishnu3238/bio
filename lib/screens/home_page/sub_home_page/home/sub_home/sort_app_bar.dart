@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 
-import '../../../../package/custom_widgets/app_bars/sliver_appbar_delegate.dart';
+import '../../../../../package/custom_widgets/app_bars/sliver_appbar_delegate.dart';
 
 class SortBar extends StatelessWidget {
   const SortBar({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class SortBar extends StatelessWidget {
         minHeight: 60,
         maxHeight: 60,
         child: Container(
-          margin: const EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 5),
           color: Colors.white,
           child: Consumer<Notifier>(builder: (context, notify, _) {
             List sortingButtons = notify.sortingButtons;

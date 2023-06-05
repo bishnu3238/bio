@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/enums.dart';
-import 'package:universal_lab/class/user/auth_service.dart';
+import 'package:universal_lab/class/user_services/auth_service.dart';
+import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
+import '../../screens/home_page/sub_home_page/settings/setting.dart';
 
 import '../../screens/authentication/log_in.dart';
+import '../functions/functions.dart';
 import '../navigate.dart';
 
 var img =
@@ -18,14 +21,21 @@ class UserIcon extends StatelessWidget {
     return Consumer<AuthService>(
       builder: (ctx, user, _) {
         if (user.authStatus == AuthStatus.Login) {
-          return CircleAvatar(
-            backgroundImage: NetworkImage(img),
+          return InkWell(
+            onTap: () => Functions.userPopUp(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(5, 5, 8, 5),
+              child: CircleAvatar(
+                radius: 18,
+                child: user.user!.photoURL.isEmpty
+                    ? const Icon(FontAwesomeIcons.user, size: 15)
+                    : Image.network(user.user!.photoURL),
+              ),
+            ),
           );
         } else {
           return IconButton(
-              onPressed: () {
-                Navigate.go(context, const LogIn());
-              },
+              onPressed: () => context.read<Notifier>().navIndex = 4,
               icon: const FaIcon(FontAwesomeIcons.circleUser));
         }
       },

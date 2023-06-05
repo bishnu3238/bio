@@ -4,7 +4,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? initialValue;
   final String hintText;
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final VoidCallback? onTap;
   final InputDecoration? decoration;
   final FormFieldValidator<String>? validator;
@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hintText,
-    required this.prefixIcon,
+     this.prefixIcon,
     this.validator,
     this.onChanged,
     this.suffixIcon,
@@ -51,8 +51,8 @@ class CustomTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onPrimary,
+              borderSide: const BorderSide(
+                // color: Theme.of(context).colorScheme.onPrimary,
                 width: 2.0,
               ),
             ),

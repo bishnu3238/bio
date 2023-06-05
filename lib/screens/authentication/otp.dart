@@ -1,23 +1,30 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/app_info.dart';
-import 'package:universal_lab/class/user/auth_service.dart';
+import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/class/user_services/auth_service.dart';
 import 'package:universal_lab/package/custom_snack_bar.dart';
 import 'package:universal_lab/package/loading_button.dart';
 import 'package:universal_lab/package/navigate.dart';
 import 'package:universal_lab/screens/home_page/home_page.dart';
 
+import '../../class/widget_lavel_provider/notifier.dart';
 import '../../package/custom_widgets/app_bars/app_bar.dart';
+import '../../package/custom_widgets/app_bars/simple_app_bar.dart';
 import 'sub_authentication/otp_header.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
-  const OtpPage(this.phoneNumber, {Key? key}) : super(key: key);
+  final String? verificationId;
+  final int? resentToken;
+  const OtpPage(this.phoneNumber, this.verificationId, this.resentToken,
+      {Key? key})
+      : super(key: key);
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -53,18 +60,22 @@ class _OtpPageState extends State<OtpPage> {
     super.dispose();
   }
 
-  Future _verify(TextEditingController otpController, String verificationId,
-      int? resendToken) async {
+  Future _verify(
+    TextEditingController otpController,
+  ) async {
     try {
       await authService
-          .verifyCode(verificationId, otpController.text)
+          .verifyCode(widget.verificationId!, otpController.text)
           .then((value) {
         value.user != null
-            ? CustomSnackBar.showSnackBar("Verification Success", Colors.red)
+            ? CustomSnackBar.awesomeSnack(
+                "Success!", "Login Successful", ContentType.success)
             : CustomSnackBar.showSnackBar("Verification Failed", Colors.red);
         Navigate.goto(context, const HomePage());
       });
     } catch (e) {
+      context.read<Notifier>().loading = false;
+
       log(e.toString());
       CustomSnackBar.showSnackBar("Verification Failed $e", Colors.red);
     }
@@ -78,7 +89,7 @@ class _OtpPageState extends State<OtpPage> {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
           child: Scaffold(
-            appBar: AppAppBar(
+            appBar: SimpleAppBar(
                 icon: FontAwesomeIcons.arrowLeft,
                 todo: () {}, // TODO: cross icon
                 title: "OTP",
@@ -93,7 +104,7 @@ class _OtpPageState extends State<OtpPage> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 8.0),
               child: Column(
                 children: [
-                  const OtpHeader(),
+                  OtpHeader(widget.phoneNumber),
                   Center(
                     child: Pinput(
                       length: 6,
@@ -138,13 +149,9 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   const Spacer(),
                   LoadingButton(
-                    color: AppConstant.color,
+                    color: kBlue,
                     text: "Verify",
-                    onPressed: () => _verify(
-                      auth.otpController,
-                      auth.verificationId,
-                      auth.resendToken,
-                    ),
+                    onPressed: () => _verify(auth.otpController),
                   )
                 ],
               ),

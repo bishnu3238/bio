@@ -32,13 +32,17 @@ class Rows extends StatelessWidget {
   const Rows({
     super.key,
     this.widget,
-    required this.icon,
-    required this.label,
+    this.icon,
+    this.label,
+    this.title,
+    this.textStyle,
   });
 
-  final IconData icon;
-  final String label;
+  final IconData? icon;
+  final String? label;
+  final Widget? title;
   final Widget? widget;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +50,15 @@ class Rows extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Row(
         children: [
-          Icon(icon, size: 18, color: Colors.blueAccent[200]),
+          icon == null
+              ? const SizedBox.shrink()
+              : Icon(icon, size: 18, color: Colors.blueAccent[200]),
           const SizedBox(width: 10),
-          Text(
-            label,
-            style: txStl(15, Colors.black, FontWeight.normal),
-          ),
+          title ??
+              Text(
+                label ?? "",
+                style: textStyle ?? txStl(15, Colors.black, FontWeight.normal),
+              ),
           const Spacer(),
           widget ?? const FaIcon(FontAwesomeIcons.angleRight, size: 15),
         ],

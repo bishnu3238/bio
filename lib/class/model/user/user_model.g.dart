@@ -21,6 +21,7 @@ class UserAdapter extends TypeAdapter<User> {
       email: fields[2] as String,
       name: fields[1] as String,
       photoURL: fields[3] as String,
+      phoneNO: fields[4] as String,
     );
   }
 

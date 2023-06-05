@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
+import '../product_master/items_model.dart';
 
-class CartItem {
-  final String id, name, image;
-  final double price, rating, discount;
-  final String description;
-  final String brandId, categoryId, subCategoryId;
-  final int quantity;
-  final bool isBestSeller;
+class CartItem extends ItemModel {
+
+  late  int quantity;
 
 //<editor-fold desc="Data Methods">
-  const CartItem({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.rating,
-    required this.discount,
-    required this.description,
-    required this.brandId,
-    required this.categoryId,
-    required this.subCategoryId,
-    required this.quantity,
-    required this.isBestSeller,
-  });
+   CartItem({
+    required id,
+    required name,
+    required image,
+    required price,
+    required rating,
+    required discount,
+    required description,
+    required brandId,
+    required categoryId,
+    required subCategoryId,
+     this.quantity = 0,
+    required isBestSeller,
+  }) : super(
+            id: id,
+            name: name,
+            image: image,
+            price: price,
+            rating: rating,
+            discount: discount,
+            description: description,
+            brandId: brandId,
+            categoryId: categoryId,
+            subCategoryId: subCategoryId,
+            isBestSeller: isBestSeller);
 
+  @override
   CartItem copyWith({
     String? id,
     String? name,
@@ -54,6 +63,7 @@ class CartItem {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -90,24 +100,3 @@ class CartItem {
 
 //</editor-fold>
 }
-
-// class CartItem {
-//   final int id;
-//   final String title, description;
-//   final List<String> images;
-//   final List<Color> colors;
-//   final double rating, price;
-//   final bool isFavourite, isPopular;
-//
-//   CartItem({
-//     required this.id,
-//     required this.images,
-//     required this.colors,
-//     this.rating = 0.0,
-//     this.isFavourite = false,
-//     this.isPopular = false,
-//     required this.title,
-//     required this.price,
-//     required this.description,
-//   });
-// }

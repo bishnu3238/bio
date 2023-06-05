@@ -8,6 +8,8 @@ enum Load { Waiting, Complete, Done, Successful, Loading, Cancel }
 
 enum AuthStatus { Login, Logout }
 
-enum HiveKey {
-  user,
-}
+enum HiveKey { user }
+
+enum LogInType { Php, Node, Firebase, Google, Facebook, Apple, Git, Others }
+
+enum ItemSearchType { Category,Subcategory, Brand, Item, Bestseller, Discount }

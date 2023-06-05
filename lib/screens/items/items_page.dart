@@ -11,10 +11,13 @@ import 'package:universal_lab/package/custom_widgets/divide.dart';
 import 'package:universal_lab/package/navigate.dart';
 import 'package:universal_lab/package/size_config.dart';
 import 'package:universal_lab/package/text_style.dart';
-import 'package:universal_lab/screens/home_page/home/sub_home/sort_app_bar.dart';
+import '../../package/custom_widgets/custom_image.dart';
+import '../../screens/home_page/sub_home_page/home/sub_home/sort_app_bar.dart';
 
 import '../../class/model/product_master/items_model.dart';
-import 'item_details.dart';
+import 'item_details/item_details.dart';
+import 'sub_items/item_values.dart';
+import 'sub_items/stack_icon.dart';
 
 class ItemsPage extends StatelessWidget {
   final String id;
@@ -29,7 +32,7 @@ class ItemsPage extends StatelessWidget {
         List<ItemModel> items = provide.getItemsFromCategoryId(id);
         log(items.length.toString());
         return Scaffold(
-          appBar: AppAppBar(title: category.categoryName, tPosition: false),
+          appBar: AppAppBar(title: category.name, tPosition: false),
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -60,14 +63,16 @@ class ItemsPage extends StatelessWidget {
                               children: [
                                 Hero(
                                   tag: items[index].name,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(items[index].image)),
+                                  child: CustomImage(
+                                    items[index].image,
+                                    radius: 10,
+                                    height: 115,
+                                  ),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(items[index].name,
                                     maxLines: 1,
-                                    style: stlH3,
+                                    style: stlH3(),
                                     overflow: TextOverflow.fade),
                                 Text(items[index].description,
                                     maxLines: 2,
@@ -80,26 +85,7 @@ class ItemsPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: Card(
-                              elevation: 5,
-                              semanticContainer: false,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(
-                                    maxWidth: 25, minHeight: 25),
-                                onPressed: () {},
-                                icon: FaIcon(
-                                  FontAwesomeIcons.circlePlus,
-                                  color: Colors.redAccent.shade700,
-                                ),
-                              ),
-                            ),
-                          ),
+                          const StackIcon(),
                         ],
                       ),
                     ),

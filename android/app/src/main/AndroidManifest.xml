@@ -51,7 +51,7 @@
 
 
     <application
-        android:label="Bio Cellar"
+        android:label="BioCellar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

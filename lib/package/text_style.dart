@@ -12,7 +12,7 @@ TextStyle txStlWithHt(double size, Color color, FontWeight fw, double ht) {
       fontSize: size, color: color, fontWeight: fw, height: ht);
 }
 
-TextStyle navTxStl(double? size, Color? color, FontWeight? fw) {
+TextStyle navTxStl([double? size, Color? color, FontWeight? fw]) {
   return GoogleFonts.notoSansCaucasianAlbanian(
       fontSize: size, color: color, fontWeight: fw);
 }
@@ -42,15 +42,15 @@ final stlH2 = GoogleFonts.ubuntuMono(
   color: Colors.black,
   // height: 1.5,
 );
-final stlH3 = GoogleFonts.tiroTelugu(
-  fontSize: getProportionateScreenWidth(20),
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  height: 1.5,
-);
+stlH3([Color? color]) => GoogleFonts.tiroTelugu(
+      fontSize: getProportionateScreenWidth(20),
+      fontWeight: FontWeight.bold,
+      color: color ?? Colors.black,
+      height: 1.5,
+    );
 
 final stlH4 = GoogleFonts.markoOne(
-  fontSize: getProportionateScreenWidth(13),
+  fontSize: getProportionateScreenWidth(15),
   fontWeight: FontWeight.bold,
   color: Colors.deepOrangeAccent.shade700,
   height: 1.5,
@@ -80,3 +80,9 @@ final stlL = GoogleFonts.joan(
   color: Colors.blueGrey[900],
   fontWeight: FontWeight.w600,
 );
+
+stlBtn(Color? color) => GoogleFonts.habibi(
+      fontSize: 15.0,
+      color: color ?? Colors.blueGrey[900],
+      fontWeight: FontWeight.w500,
+    );

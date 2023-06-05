@@ -6,7 +6,7 @@ import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
 import 'package:universal_lab/package/navigate.dart';
 import 'package:universal_lab/package/text_style.dart';
 
-import '../../items/items_page.dart';
+import '../../../items/items_page.dart';
 
 class Category extends StatelessWidget {
   const Category({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class Category extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        category.categoryName,
+                        category.name,
                         style: txStl(15, Colors.black87, FontWeight.w500),
                       ),
                       trailing: IconButton(

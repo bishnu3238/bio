@@ -110,8 +110,9 @@ class UserName extends StatelessWidget {
                           LoadingButton(
                               color: Colors.redAccent.shade400,
                               text: "Continue",
-                              onPressed: () =>
-                                  Navigate.go(context, const HomePage())),
+                              onPressed: ()=>
+                                  Navigate.go(context, const HomePage())
+                          ),
                         ],
                       ),
                     ),

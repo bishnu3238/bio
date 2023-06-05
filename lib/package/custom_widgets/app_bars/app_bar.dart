@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/model/cart.dart';
+import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/model/universal_lab_provider.dart';
 
 import '../../../screens/cart/cart_screen.dart';
@@ -40,12 +40,14 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: tPosition,
-      title: Image.asset('assets/logo/app_logo.png'),
-      // Text(
-      //   title ?? '',
-      //   style: style ??
-      //       GoogleFonts.lindenHill(color: Colors.black87, fontSize: 18),
-      // ),
+      title: Text(
+        title ?? '',
+        style: style ??
+            GoogleFonts.lindenHill(
+                color: Colors.black87,
+                fontSize: 18,
+                fontWeight: FontWeight.w900),
+      ),
       elevation: elevation ?? 0,
       actions: [
         ...?buttons,

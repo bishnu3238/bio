@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:universal_lab/class/enums.dart';
+import 'package:universal_lab/class/master.dart';
+import 'package:universal_lab/class/model/product_master/items_model.dart';
+import 'package:universal_lab/class/model/universal_lab_provider.dart';
 import 'package:universal_lab/package/size_config.dart';
 import 'package:universal_lab/package/text_style.dart';
+import 'package:universal_lab/screens/items/item_details/item_details.dart';
+import 'package:universal_lab/screens/items/items_by_type.dart';
+import '../../../../package/navigate.dart';
 import 'sub_home/our_products.dart';
 
 import 'sub_home/today_best_offers.dart';
 import 'sub_home/view_all_text.dart';
-import '../../../package/custom_widgets/divide.dart';
-import '../../../package/custom_widgets/image_sliders.dart';
+import '../../../../package/custom_widgets/divide.dart';
+import '../../../../package/custom_widgets/image_sliders.dart';
 import 'sub_home/brand_views.dart';
 import 'sub_home/home_app_bar.dart';
 import 'sub_home/best_seller.dart';
@@ -16,35 +24,52 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BioCellar.initialize(context);
     return CustomScrollView(
       slivers: [
-        const HomeAppBar(),
+        HomeAppBar(onSearch: (data) {
+          if (data.type == ItemSearchType.Item) {
+            ItemModel item = context.read<Provide>().getItemFromId(data.id);
+            Navigate.go(context, ItemDetails(item: item));
+          } else {
+            Navigate.go(context, ItemsByType(type: data.type!, id: data.id));
+          }
+        }),
         SliverToBoxAdapter(
           child: Column(
             children: [
               ImageSlider(onTap: (value) {}),
               const BrandViews(),
               Divide(color: Colors.grey.shade200),
+              ViewAllText(
+                  title: "Best Seller",
+                  viewAll: () => Navigate.go(context,
+                      const ItemsByType(type: ItemSearchType.Bestseller)))
             ],
           ),
         ),
-        SliverToBoxAdapter(
-            child: ViewAllText(title: "Best Seller", viewAll: () {})),
         const BestSeller(),
         SliverToBoxAdapter(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Divide(color: Colors.white24),
-              ViewAllText(title: "Limited time offer %", viewAll: () {}),
+              ViewAllText(
+                  title: "Limited time offer %",
+                  viewAll: () => Navigate.go(context,
+                      const ItemsByType(type: ItemSearchType.Discount))),
+              const TodayBestOffers(),
             ],
           ),
         ),
-        const TodayBestOffers(),
         SliverToBoxAdapter(
           child: Column(
             children: [
               Divide(color: Colors.grey[300]),
-              ViewAllText(title: "Our products", viewAll: () {}),
+              ViewAllText(
+                  title: "Our products",
+                  viewAll: () => Navigate.go(
+                      context, const ItemsByType(type: ItemSearchType.Item))),
               const OurProducts(),
             ],
           ),

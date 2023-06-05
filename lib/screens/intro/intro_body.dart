@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:universal_lab/package/text_style.dart';
+import '../../class/app_constant.dart';
 
 class IntroBody extends StatelessWidget {
-  final String? status;
-  const IntroBody({Key? key, this.status}) : super(key: key);
+  const IntroBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context).textTheme;
+    var theme = Theme.of(context).textTheme.titleSmall;
     var size = MediaQuery.of(context).size;
     return Container(
       height: size.height - kToolbarHeight,
@@ -20,22 +21,28 @@ class IntroBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "Bio Cellar",
-            style:
-                theme.titleLarge!.copyWith(color: Colors.white, fontSize: 25),
-          ),
+          const Spacer(),
+          Text(appName, style: stlH3(Colors.white)),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                status ?? "",
-                style: theme.titleSmall!.copyWith(color: Colors.white),
-              ),
+              Text("Loading", style: theme!.copyWith(color: Colors.white)),
               const SizedBox(width: 10),
               const SpinKitSpinningCircle(color: Colors.white, size: 10),
             ],
+          ),
+          const Spacer(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Please Wait", style: TextStyle(color: Colors.white)),
+                SizedBox(width: 10),
+                SpinKitThreeBounce(color: Colors.white, size: 12),
+              ],
+            ),
           )
         ],
       ),

@@ -78,9 +78,9 @@ class SignupPage extends StatelessWidget {
                 LoadingButton(
                     text: "Sign Up",
                     color: Colors.blueGrey[800],
-                    onPressed: () {
-                      _signUp();
-                    }),
+                    onPressed:
+                      _signUp()
+                    ),
                 // Padding(
                 //   padding: const EdgeInsets.symmetric(horizontal: 2),
                 //   child: SizedBox(

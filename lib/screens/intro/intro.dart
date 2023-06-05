@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/enums.dart';
 import 'package:universal_lab/class/model/universal_lab_provider.dart';
-import 'package:universal_lab/class/user/auth_service.dart';
+import 'package:universal_lab/class/user_services/auth_service.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/simple_app_bar.dart';
 import 'package:universal_lab/screens/authentication/log_in.dart';
+import '../../class/master.dart';
 import '../../package/navigate.dart';
 
+import '../../package/size_config.dart';
 import '../home_page/home_page.dart';
 import 'intro_body.dart';
 
@@ -24,11 +27,20 @@ class _IntroState extends State<Intro> {
   @override
   void initState() {
     super.initState();
+
     context.read<Provide>().dummyData(); // TODO: remove this;
+    BioCellar.initialize(context);
+
+    Future.delayed(const Duration(seconds: 3), () {
+      context.read<AuthService>().authStateChanges();
+      Navigate.goto(context, const HomePage());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context); // configure sizeConfig with device with, height
+
     return Scaffold(
       appBar: SimpleAppBar(
         color: const Color(0xFF2874F0),
@@ -40,34 +52,7 @@ class _IntroState extends State<Intro> {
           ),
         ),
       ),
-      body: Consumer<AuthService>(
-        builder: (ctx, auth, _) {
-          return StreamBuilder<User?>(
-            stream: auth.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return IntroBody(status: auth.load);
-              } else if (snapshot.hasData) {
-                if (snapshot.data == null) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    auth.load = Load.Waiting.name;
-                    Navigate.goto(context, const LogIn());
-                  });
-                  return IntroBody(status: auth.load);
-                } else {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    auth.load = Load.Waiting.name;
-                    Navigate.goto(context, const HomePage());
-                  });
-                  return IntroBody(status: auth.load);
-                }
-              } else {
-                return IntroBody(status: auth.load);
-              }
-            },
-          );
-        },
-      ),
+      body: const IntroBody(),
     );
   }
 }
