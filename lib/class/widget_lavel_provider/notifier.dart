@@ -3,6 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:universal_lab/class/enums.dart';
 import 'package:universal_lab/package/functions/sort_bar_functions/open_sort_sheet.dart';
 
+import '../../package/functions/sort_bar_functions/filter_list_widgets/brand_list.dart';
+import '../../package/functions/sort_bar_functions/filter_list_widgets/category_list.dart';
+import '../../package/functions/sort_bar_functions/filter_list_widgets/price_range.dart';
+import '../../package/functions/sort_bar_functions/open_filter_sheet.dart';
+
 class Notifier extends ChangeNotifier {
   bool _willPop = false;
 
@@ -11,6 +16,15 @@ class Notifier extends ChangeNotifier {
   bool _loading = false;
 
   int _pageIndicator = 0;
+
+  int _filterIndex = 0;
+
+  int get filterIndex => _filterIndex;
+
+  set filterIndex(int value) {
+    _filterIndex = value;
+    notifyListeners();
+  }
 
   UserType _userType = UserType.User;
 
@@ -30,8 +44,8 @@ class Notifier extends ChangeNotifier {
         break;
       case 1:
         // todo:
-        // openFiltterSheet(context);
-        break;
+        openFilterSheet(context);
+      // break;
       case 2:
         // todo:
         break;
@@ -48,6 +62,16 @@ class Notifier extends ChangeNotifier {
     {"label": "Brands", "icon": FontAwesomeIcons.brandsFontAwesome},
   ];
 
+  List<Map> filterList = [
+    {"label": "Relevance", "widget": const Text("Relevance")},
+    {"label": "Category", "widget": const FilterCategoryList()},
+    {"label": "Brands", "widget": const FilterBrandList()},
+    {"label": "Price", "widget": const FilterPriceRange()},
+    {"label": "Discount", "widget": const Text("Relevance")},
+    {"label": "Customer Rating", "widget": const Text("Relevance")},
+    {"label": "Best Seller", "widget": const Text("Relevance")},
+    {"label": "Others", "widget": const Text("Relevance")},
+  ];
   bool get willPop => _willPop;
 
   set willPop(bool value) {
@@ -75,7 +99,6 @@ class Notifier extends ChangeNotifier {
     _loading = value;
     notifyListeners();
   }
-
 
   int get navIndex => _navIndex;
 

@@ -18,28 +18,30 @@ class SortBar extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(left: 5),
           color: Colors.white,
-          child: Consumer<Notifier>(builder: (context, notify, _) {
-            List sortingButtons = notify.sortingButtons;
-            return ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return ActionChip(
-                  elevation: 3,
-                  backgroundColor: Colors.white,
-                  avatar: FaIcon(sortingButtons[index]['icon'], size: 15),
-                  label: Text(sortingButtons[index]['label']),
-                  onPressed: () {
-                    notify.sortingIndex = index;
-                    notify.onSortingBarTap(context);
-                  },
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Padding(padding: EdgeInsets.all(8));
-              },
-              itemCount: sortingButtons.length,
-            );
-          }),
+          child: Consumer<Notifier>(
+            builder: (context, notify, _) {
+              List sortingButtons = notify.sortingButtons;
+              return ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return ActionChip(
+                    elevation: 3,
+                    backgroundColor: Colors.white,
+                    avatar: FaIcon(sortingButtons[index]['icon'], size: 15),
+                    label: Text(sortingButtons[index]['label']),
+                    onPressed: () {
+                      notify.sortingIndex = index;
+                      notify.onSortingBarTap(context);
+                    },
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Padding(padding: EdgeInsets.all(8));
+                },
+                itemCount: sortingButtons.length,
+              );
+            },
+          ),
         ),
       ),
     );

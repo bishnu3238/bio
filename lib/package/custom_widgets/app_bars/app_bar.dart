@@ -8,6 +8,7 @@ import 'package:universal_lab/class/model/universal_lab_provider.dart';
 import '../../../screens/cart/cart_screen.dart';
 import '../../navigate.dart';
 import '../cart_icon.dart';
+import '../search_icon.dart';
 
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? color;
@@ -51,6 +52,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: elevation ?? 0,
       actions: [
         ...?buttons,
+        const SearchIcon(),
         const CartIcon(),
       ],
       leading: icon == null

@@ -79,12 +79,14 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future sendVerificationCode(String phone, VoidCallback onSend) async {
+  Future sendVerificationCode(String phone, VoidCallback onSend,
+      [bool resend = false]) async {
     var phoneNumber = "+91 ${phone.replaceAll(RegExp(r'[^\d]'), '')}";
     log(phoneNumber);
     try {
       return await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
+        forceResendingToken: resend ? _resendToken : null,
         verificationCompleted: (PhoneAuthCredential credential) async {
           log("verification Complete ${credential.smsCode}");
           otpController.setText(credential.smsCode!);
@@ -178,5 +180,9 @@ class AuthService extends ChangeNotifier {
       CustomSnackBar.awesomeSnack(
           "Error", "Sign in failed", ContentType.failure);
     }
+  }
+
+  void resendOtp(String phone, VoidCallback onDone, resend) {
+    sendVerificationCode(phone, onDone, resend);
   }
 }

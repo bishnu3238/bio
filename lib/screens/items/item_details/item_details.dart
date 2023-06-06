@@ -93,6 +93,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                           have
                               ? disableAddToCart = true
                               : disableAddToCart = false;
+
                           return have
                               ? CustomAddOrRemoveButtons(widget.item.id)
                               : const SizedBox();
@@ -117,7 +118,15 @@ class _ItemDetailsState extends State<ItemDetails> {
                             Expanded(
                                 child: Buttons(
                               text: "Add to cart",
-                              onTap: disableAddToCart ? null : () {},
+                              onTap: disableAddToCart
+                                  ? null
+                                  : () {
+                                      context
+                                          .read<Cart>()
+                                          .addToCart(widget.item);
+                                      disableAddToCart = true;
+                                      setState(() {});
+                                    },
                               color: Colors.white,
                             )),
                             Expanded(

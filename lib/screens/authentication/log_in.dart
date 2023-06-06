@@ -43,7 +43,6 @@ class _LogInState extends State<LogIn> {
   }
 
   Future _logIn() async {
-    log("hello");
     try {
       context.read<Notifier>().loading = true;
       await auth.sendVerificationCode(_phone.text, () {});

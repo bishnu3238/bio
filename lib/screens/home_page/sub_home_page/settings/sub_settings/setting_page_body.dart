@@ -1,12 +1,17 @@
+import 'dart:math';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/app_constant.dart';
 import 'package:universal_lab/class/user_services/auth_service.dart';
 
 import '../../../../../class/enums.dart';
 import '../../../../../package/custom_widgets/divide.dart';
 import '../../../../../package/size_config.dart';
+import '../../../../../package/text_style.dart';
 import 'options_card.dart';
 import 'setting_page_header.dart';
 
@@ -24,17 +29,39 @@ class _SettingPageBodyState extends State<SettingPageBody> {
       return Column(
         children: [
           auth.authStatus == AuthStatus.Login
-              ? const OptionsCard(
+              ? OptionsCard(
                   title: "My Activity",
                   listOfWidget: [
-                    Rows(
+                    const Rows(
                         icon: FontAwesomeIcons.penToSquare,
                         label: "Review",
                         widget: null),
                     Rows(
                         icon: FontAwesomeIcons.coins,
-                        label: "My Coins",
+                        label: "My Points",
                         widget: null),
+                    Rows(
+                        icon: FontAwesomeIcons.qrcode,
+                        // label: "BIO${Random.secure().nextInt(1000)}",
+                        title: Expanded(
+                          flex: 6,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                "BIO${Random.secure().nextInt(1000)}",
+                                style: txStl(18, kPrimeColor, FontWeight.bold),
+                              ),
+                              const AutoSizeText(
+                                "Refer to earn on every purchase from that user",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ],
+                          ),
+                        ),
+                        widget: TextButton(
+                            onPressed: () {}, child: const Text("Share"))),
                   ],
                 )
               : const SizedBox.shrink(),

@@ -12,6 +12,7 @@ class Settings extends StatelessWidget {
     return const Scaffold(
       appBar: AppAppBar(title: "ACCOUNT", tPosition: false),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SettingPageHeader(),

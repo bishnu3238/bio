@@ -1,15 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/app_constant.dart';
-import 'package:universal_lab/class/model/universal_lab_provider.dart';
-import 'package:universal_lab/package/navigate.dart';
-import 'package:universal_lab/package/size_config.dart';
-import 'package:universal_lab/package/text_style.dart';
-
-import '../../../../../package/custom_widgets/divide.dart';
+import '../../../../../class/enums.dart';
+import '../../../../../class/model/universal_lab_provider.dart';
+import '../../../../../package/navigate.dart';
+import '../../../../../package/size_config.dart';
+import '../../../../../package/text_style.dart';
 import '../../../../brands/brands.dart';
+import '../../../../items/items_by_type.dart';
 import 'view_all_text.dart';
 
 class BrandViews extends StatelessWidget {
@@ -37,6 +35,10 @@ class BrandViews extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
+                    Navigate.go(
+                      context,
+                      ItemsByType(type: ItemSearchType.Brand, id: brand.id),
+                    );
                     log(brand.name);
                   },
                   child: Card(
@@ -52,10 +54,7 @@ class BrandViews extends StatelessWidget {
                             height: getProportionateScreenHeight(60),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                brand.image,
-                                // fit: BoxFit.fill,
-                              ),
+                              child: Image.asset(brand.image),
                             ),
                           ),
                           Divider(
@@ -63,8 +62,10 @@ class BrandViews extends StatelessWidget {
                             thickness: 2,
                             color: Colors.red[200],
                           ),
-                          Text(brand.name,
-                              style: stl1(14, null, FontWeight.w500))
+                          Text(
+                            brand.name,
+                            style: stl1(14, null, FontWeight.w500),
+                          )
                         ],
                       ),
                     ),

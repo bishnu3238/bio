@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/class/master.dart';
 import 'package:universal_lab/class/user_services/auth_service.dart';
 import 'package:universal_lab/package/custom_snack_bar.dart';
 import 'package:universal_lab/package/loading_button.dart';
@@ -54,6 +55,11 @@ class _OtpPageState extends State<OtpPage> {
     });
   }
 
+  stopTimer() {
+    _timer.cancel();
+    setState(() {});
+  }
+
   @override
   void dispose() {
     _timer.cancel();
@@ -64,6 +70,7 @@ class _OtpPageState extends State<OtpPage> {
     TextEditingController otpController,
   ) async {
     try {
+      BioCellar.initialize(context);
       await authService
           .verifyCode(widget.verificationId!, otpController.text)
           .then((value) {
@@ -133,6 +140,13 @@ class _OtpPageState extends State<OtpPage> {
                                 });
                                 startTimer();
                                 // TODO: Handle resend OTP logic
+                                try {
+                                  auth.resendOtp("9231665466", () {}, true);
+                                } catch (e) {
+                                  log("Stop Timer");
+                                  stopTimer();
+                                  log("stop Timer");
+                                }
                               },
                               child: const Text(
                                 'Resend OTP',
