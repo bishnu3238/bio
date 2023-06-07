@@ -14,14 +14,10 @@ class BottomNavBar extends StatelessWidget {
       builder: (context, bottomNavIndexNotifier, child) {
         return BottomNavigationBar(
           elevation: 5,
-          onTap: (int index) {
-            bottomNavIndexNotifier.navIndex = index;
-            bottomNavIndexNotifier.willPop = index == 0;
-          },
-          currentIndex: bottomNavIndexNotifier.navIndex,
-          type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blue.shade900,
+          currentIndex: bottomNavIndexNotifier.navIndex,
           unselectedItemColor: Colors.blueGrey.withOpacity(0.4),
           selectedLabelStyle: navTxStl(12, Colors.blue.shade900, null),
           unselectedLabelStyle: txStl(12, Colors.black, FontWeight.w900),
@@ -47,44 +43,11 @@ class BottomNavBar extends StatelessWidget {
               label: 'Setting',
             ),
           ],
+          onTap: (int index) {
+            bottomNavIndexNotifier.navIndex = index;
+            bottomNavIndexNotifier.willPop = index == 0;
+          },
         );
-        // ;
-        //   SafeArea(
-        //     child: Padding(
-        //   padding: const EdgeInsets.all(8),
-        //   child: Container(
-        //     padding: const EdgeInsets.all(12),
-        //     margin: const EdgeInsets.symmetric(horizontal: 10),
-        //     decoration: const BoxDecoration(
-        //         color: Colors.black,
-        //         borderRadius: BorderRadius.all(Radius.circular(16))),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: [
-        //         BotomNavWidget(
-        //           onTap: () {},
-        //           icon: FontAwesomeIcons.house,
-        //         ),
-        //         BotomNavWidget(
-        //           onTap: () {},
-        //           icon: FontAwesomeIcons.magnifyingGlass,
-        //         ),
-        //         BotomNavWidget(
-        //           onTap: () {},
-        //           icon: FontAwesomeIcons.dashcube,
-        //         ),
-        //         BotomNavWidget(
-        //           onTap: () {},
-        //           icon: FontAwesomeIcons.opencart,
-        //         ),
-        //         BotomNavWidget(
-        //           onTap: () {},
-        //           icon: FontAwesomeIcons.vest,
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ));
       },
     );
   }

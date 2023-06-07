@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/master.dart';
 import 'package:universal_lab/class/model/universal_lab_provider.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
 import 'package:universal_lab/package/navigate.dart';
@@ -13,6 +14,7 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BioCellar.initialize(context);
     return Scaffold(
       appBar: const AppAppBar(title: "Category", tPosition: false),
       body: Consumer<Provide>(

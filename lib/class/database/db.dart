@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
+// TODO: work here later [07/06/2023]
+
+
 class DB {
   static Future<Directory> getDirectory() async {
     return await getApplicationDocumentsDirectory();

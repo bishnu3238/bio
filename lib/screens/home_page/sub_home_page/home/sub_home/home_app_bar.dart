@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/master.dart';
 import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/model/universal_lab_provider.dart';
 import 'package:universal_lab/package/size_config.dart';
@@ -15,18 +16,16 @@ import '../../../../../package/custom_widgets/user_icon.dart';
 import '../../../../../package/navigate.dart';
 import '../../../../../search/searchAllInBioCellar.dart';
 import '../../../../../search/search_data_provider.dart';
+import '../../../../../search/search_filter_provider.dart';
 import '../../../../authentication/log_in.dart';
 import '../../../../items/items_by_type.dart';
 
 class HomeAppBar extends StatelessWidget {
-  final Function(SearchData)? onSearch;
-  const HomeAppBar({
-    super.key,
-    this.onSearch
-  });
+  const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    BioCellar.initialize(context);
     return SliverAppBar(
       pinned: true,
       floating: true,
@@ -65,12 +64,14 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
             readOnly: true,
-            onTap: () async{
+            onTap: () async {
               // TODO: search all things in bioCellar;
-              Provide provide = context.read<Provide>();
-              var  searchData =await showSearch(context: context, delegate: SearchAllInBioCellar(provide));
-              if(searchData != null) onSearch!(searchData);
-              return;
+              // Provide provide = context.read<Provide>();
+              // var  searchData =await showSearch(context: context, delegate: SearchAllInBioCellar(provide));
+              // if(searchData != null) onSearch!(searchData);
+              // return;
+
+              SearchFilterProvider().searchAllInBioCellar();
             },
           ),
         ),

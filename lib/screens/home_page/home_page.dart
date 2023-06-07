@@ -5,7 +5,6 @@ import 'sub_home_page/notification/notification.dart';
 import 'sub_home_page/my_orders/my_orders.dart';
 import 'sub_home_page/settings/setting.dart';
 import '../../class/widget_lavel_provider/notifier.dart';
-import '../../package/custom_snack_bar.dart';
 import 'sub_home_page/category/category.dart';
 import 'sub_home_page/home/home.dart';
 import 'bottom_nav_bar/bottom_nav_bar.dart';
@@ -18,9 +17,7 @@ class HomePage extends StatelessWidget {
     return Consumer<Notifier>(
       builder: (context, index, _) {
         return WillPopScope(
-          onWillPop: () async {
-            return await _onWillPopScope(index);
-          },
+          onWillPop: () async => await _onWillPopScope(index),
           child: Scaffold(
             body: [
               const Home(),

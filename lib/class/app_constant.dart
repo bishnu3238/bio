@@ -19,6 +19,11 @@ const kGradient = LinearGradient(
   colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
 );
 
+
+
+const kLayoutWidth = 375.0;
+const kLayoutHeight = 812.0;
+
 const kAnimationDuration = Duration(milliseconds: 200);
 const defaultDuration = Duration(milliseconds: 250);
 

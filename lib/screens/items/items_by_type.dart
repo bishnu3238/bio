@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/master.dart';
 import '../../class/model/universal_lab_provider.dart';
 import '../../package/custom_widgets/app_bars/app_bar.dart';
 import '../../package/navigate.dart';
@@ -26,17 +27,16 @@ class ItemsByType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BioCellar.initialize(context);
     return Consumer<Provide>(
       builder: (context, provide, _) {
-        var theme = Theme.of(context).textTheme;
-
         dynamic title = provide.groupedBy(type, id ?? "");
         List<ItemModel> items = provide.getItemsFromSearchType(type, id ?? "");
         return Scaffold(
           appBar: AppAppBar(title: title, tPosition: false),
           body: NestedScrollView(
             headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
-              return [const SortBar()];
+              return [const SortBar2()];
             },
             body: ListView.builder(
               shrinkWrap: true,

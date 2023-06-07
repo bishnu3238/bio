@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/master.dart';
 import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/model/universal_lab_provider.dart';
 

@@ -27,16 +27,7 @@ class Home extends StatelessWidget {
     BioCellar.initialize(context);
     return CustomScrollView(
       slivers: [
-        HomeAppBar(
-          onSearch: (data) {
-            if (data.type == ItemSearchType.Item) {
-              ItemModel item = context.read<Provide>().getItemFromId(data.id);
-              Navigate.go(context, ItemDetails(item: item));
-            } else {
-              Navigate.go(context, ItemsByType(type: data.type!, id: data.id));
-            }
-          },
-        ),
+        const HomeAppBar(),
         SliverToBoxAdapter(
           child: Column(
             children: [
