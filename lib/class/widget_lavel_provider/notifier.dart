@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:universal_lab/class/enums.dart';
-import 'package:universal_lab/package/functions/sort_bar_functions/open_sort_sheet.dart';
+import 'package:universal_lab/screens/home_page/home_page.dart';
 
-import '../../package/functions/sort_bar_functions/filter_list_widgets/brand_list.dart';
-import '../../package/functions/sort_bar_functions/filter_list_widgets/category_list.dart';
-import '../../package/functions/sort_bar_functions/filter_list_widgets/price_range.dart';
-import '../../package/functions/sort_bar_functions/open_filter_sheet.dart';
+import '../../screens/home_page/sub_home_page/category/category.dart';
+import '../../screens/home_page/sub_home_page/my_orders/my_orders.dart';
+import '../../screens/home_page/sub_home_page/settings/setting.dart';
 
 class Notifier extends ChangeNotifier {
+  int _do = 1;
+
   bool _willPop = false;
 
   int _navIndex = 0;
@@ -16,62 +16,41 @@ class Notifier extends ChangeNotifier {
   bool _loading = false;
 
   int _pageIndicator = 0;
+  int _itemImageIndicator = 0;
 
-  int _filterIndex = 0;
+  bool _showPriceDetails = false;
 
-  int get filterIndex => _filterIndex;
+  bool _obscureText = true;
 
-  set filterIndex(int value) {
-    _filterIndex = value;
+  bool get obscureText => _obscureText;
+
+  set obscureText(bool tf) {
+    _obscureText = tf;
+    notifyListeners();
+  }
+
+  void togglePasswordVisibility() {
+    _obscureText = !_obscureText;
+    notifyListeners();
+  }
+
+  bool get showPriceDetails => _showPriceDetails;
+
+  set showPriceDetails(bool value) {
+    _showPriceDetails = value;
+
     notifyListeners();
   }
 
   UserType _userType = UserType.User;
 
-  late int _sortingIndex;
+  int get does => _do;
 
-  int get sortingIndex => _sortingIndex;
-
-  set sortingIndex(int value) {
-    _sortingIndex = value;
+  set does(int i) {
+    _do = i;
     notifyListeners();
   }
 
-  void onSortingBarTap(context) {
-    switch (_sortingIndex) {
-      case 0:
-        openSortSheet(context);
-        break;
-      case 1:
-        // todo:
-        openFilterSheet(context);
-      // break;
-      case 2:
-        // todo:
-        break;
-      case 3:
-        // todo:
-        break;
-    }
-  }
-
-  List<Map> sortingButtons = [
-    {"label": "Sort By", "icon": FontAwesomeIcons.arrowDownWideShort},
-    {"label": "Flitter", "icon": FontAwesomeIcons.filter},
-    {"label": "Category", "icon": FontAwesomeIcons.arrowDown},
-    {"label": "Brands", "icon": FontAwesomeIcons.brandsFontAwesome},
-  ];
-
-  List<Map> filterList = [
-    {"label": "Relevance", "widget": const Text("Relevance")},
-    {"label": "Category", "widget": const FilterCategoryList()},
-    {"label": "Brands", "widget": const FilterBrandList()},
-    {"label": "Price", "widget": const FilterPriceRange()},
-    {"label": "Discount", "widget": const Text("Relevance")},
-    {"label": "Customer Rating", "widget": const Text("Relevance")},
-    {"label": "Best Seller", "widget": const Text("Relevance")},
-    {"label": "Others", "widget": const Text("Relevance")},
-  ];
   bool get willPop => _willPop;
 
   set willPop(bool value) {
@@ -83,6 +62,13 @@ class Notifier extends ChangeNotifier {
 
   set pageIndicator(int value) {
     _pageIndicator = value;
+    notifyListeners();
+  }
+
+  int get itemImageIndicator => _itemImageIndicator;
+
+  set itemImageIndicator(int value) {
+    _itemImageIndicator = value;
     notifyListeners();
   }
 
@@ -105,5 +91,28 @@ class Notifier extends ChangeNotifier {
   set navIndex(int newIndex) {
     _navIndex = newIndex;
     notifyListeners();
+  }
+}
+
+extension PageGo on Notifier {
+  pageGo(int index, BuildContext context) {
+    switch (_navIndex) {
+      case 0:
+        navIndex = index;
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (ctx) => const HomePage()));
+      case 1:
+        navIndex = index;
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (ctx) => const HomePage()));
+      case 2:
+        navIndex = index;
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (ctx) => const HomePage()));
+      case 3:
+        navIndex = index;
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (ctx) => const HomePage()));
+    }
   }
 }

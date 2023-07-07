@@ -25,7 +25,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.buttons,
       this.todo,
       this.tabBar,
-        this.flexibleSpace,
+      this.flexibleSpace,
       this.tabBarHeight});
 
   @override
@@ -36,10 +36,13 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: tPosition,
       automaticallyImplyLeading: icon == null ? false : true,
-      title:
-      Text(
+      title: Text(
         title ?? '',
-        style: GoogleFonts.poppins(color: color == null ? Colors.black: Colors.white, fontWeight: FontWeight.w600, fontSize: 18),
+        style: style ??
+            GoogleFonts.poppins(
+                color: color == null ? Colors.black : Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 18),
       ),
       elevation: elevation ?? 0,
       actions: [...?buttons],
@@ -47,9 +50,11 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: icon == null ?Colors.transparent:  Theme.of(context).colorScheme.onBackground),
+              color: icon == null
+                  ? Colors.transparent
+                  : Theme.of(context).colorScheme.onBackground),
           child: IconButton(
-              padding: EdgeInsets.zero, onPressed: todo, icon: Icon(icon))),
+              padding: EdgeInsets.zero, onPressed: todo , icon: Icon(icon))),
       backgroundColor: color ?? Colors.white,
       bottom: tabBar,
       flexibleSpace: flexibleSpace,

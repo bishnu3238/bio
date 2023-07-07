@@ -3,12 +3,14 @@ import '../../../../package/custom_widgets/app_bars/app_bar.dart';
 
 import 'sub_settings/setting_page_body.dart';
 import 'sub_settings/setting_page_header.dart';
+import '../../../../class/master.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Master.initialize(context);
     return const Scaffold(
       appBar: AppAppBar(title: "ACCOUNT", tPosition: false),
       body: SingleChildScrollView(

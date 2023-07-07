@@ -18,7 +18,7 @@ class SizeConfig {
 }
 
 // Get the proportionate height as per screen size
-double getProportionateScreenHeight(double inputHeight) {
+ double getProportionateScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
   // 812 is the layout height that designer use
   return (inputHeight / kLayoutHeight) * screenHeight;

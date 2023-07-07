@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_lab/class/model/product_master/items_model.dart';
+import 'package:universal_lab/screens/items/sub_items/item_price.dart';
 
 import '../../../class/app_constant.dart';
 import '../../../package/custom_widgets/custom_add_remove_button.dart';
@@ -26,16 +27,14 @@ class ItemValues extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+          const SizedBox(height: 5),
+           Text(item.sub_title),
+           const SizedBox(height: 5),
+           ItemPrice(items: item),
           const SizedBox(height: 10),
-          const CustomRatingBar(3),
-          const SizedBox(height: 10),
-          Text(
-            "\u{20B9} ${item.price.roundToDouble()}",
-            style: stlH4,
-          ),
-          const SizedBox(height: 10),
-          Text(item.description, maxLines: 2, overflow: TextOverflow.ellipsis),
-          const SizedBox(height: 10),
+
+          CustomRatingBar(item),
+          const SizedBox(height: 40),
           showAddToCart
               ?  CustomAddOrRemoveButtons(item.id)
               : const SizedBox.shrink()

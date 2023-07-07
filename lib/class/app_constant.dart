@@ -1,35 +1,72 @@
 import 'package:flutter/material.dart';
 
 const appName = "BioCellar";
+const appAddress = "372, Rabindra Sarani, Kolkata - 700006";
 
+const appLogo = "assets/logo/toplesslogo.png";
+const appIcon = "assets/logo/b.jpeg";
+const emptyAddress = "assets/images/empty_address.jpg";
+
+const gPayNumber = "+91 9231855554";
+const gPayNumber2 = "9254166666";
+
+const gPayName = "GPAY USER NAME";
+const gPayName2 = "GPAY USER EDIT";
+
+const upiID = "UPI ID:- abckefgh9976@sbi";
+const upiID2 = "UPI ID:- abckefgh9976@okaxis";
+
+const itemImgDir = "https://eazytechno.com/biocellar/admin/menu_image";
+const itemMoreImageDir = "https://eazytechno.com/biocellar/admin/";
+const brandImgDir = "https://eazytechno.com/biocellar/admin/category_images";
+const categoryImgDir = "https://eazytechno.com/biocellar/admin/category_images";
+const userProfileImage = "https://eazytechno.com/biocellar/user/user_img";
 const bannerPath = "assets/images";
 const brandLogoPath = "assets/brandlogo";
 
-const kText = Color(0xFF757575);
-const kBlue = Color(0xFF010A17);
-const kLight = Color(0xFFFFECDF);
+const kGrey = Color(0xFF757575);
+const kR400 = Color(0xFFF51B45);
+const kDark = Color(0xFF010A17);
 const kGrey2 = Color(0xFF979797);
-const kOrange = Color(0xFFFF7643);
+const kLight = Color(0xFFFDFFFE);
+const kError = Color(0xFFFA1616);
 const kDBlue = Color(0xFF010423);
+const kLight2 = Color(0xFFF5F6F9);
+const kIndigo = Color(0xFF526BFC);
+const kOrange = Color(0xFFFF7643);
+const kD2Dark = Color(0xff5e6172);
+const kSuccess = Color(0xFF048D14);
 const kPrimeColor = Color(0xFF2874F0);
 
-const kGradient = LinearGradient(
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-  colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
-);
-
-
+kGradient(List<Color> colors) => LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: colors,
+    );
 
 const kLayoutWidth = 375.0;
 const kLayoutHeight = 812.0;
 
+Widget gap(double gap, [int? i = 0]) {
+  return i == 0 ? SizedBox(height: gap) : SizedBox(width: gap);
+}
+
+const emptyIcon = Icon(Icons.add, color: kLight);
+
 const kAnimationDuration = Duration(milliseconds: 200);
 const defaultDuration = Duration(milliseconds: 250);
+Duration kDurationSCD([int? i = 2]) => Duration(seconds: i!);
+
+kRoundRadius([double? radius = 10]) =>
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius!));
+
+const String rupee = "\u{20B9}";
 
 // Form Error
-final RegExp emailValidatorRegExp =
-    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp emailRegExp1 = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp emailRegExp2 =
+    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
@@ -39,45 +76,7 @@ const String kNameNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 
-const List<String> brandLogos = [
-  "$brandLogoPath/aczet.jpeg",
-  "$brandLogoPath/berosil.jpg",
-  "$brandLogoPath/blue_star.jpeg",
-  "$brandLogoPath/hicks.jpeg",
-  "$brandLogoPath/himedia.jpeg",
-  "$brandLogoPath/labman.jpeg",
-  "$brandLogoPath/leica.jpeg",
-  "$brandLogoPath/merch.jpeg",
-  "$brandLogoPath/microlit.jpeg",
-  "$brandLogoPath/nice.jpeg",
-  "$brandLogoPath/oxy99.jpeg",
-  "$brandLogoPath/polylab.jpeg",
-  "$brandLogoPath/remi.jpeg",
-  "$brandLogoPath/sigma_aldrich.jpeg",
-  "$brandLogoPath/srl.jpeg",
-  "$brandLogoPath/stanbio.jpeg",
-  "$brandLogoPath/wahtman.jpeg",
-];
-
-const List<String> brandName = [
-  "Aczet",
-  "Borosil",
-  "Blue Star",
-  "Hicks",
-  "Himedia",
-  "Labman",
-  "Leica",
-  "Merch",
-  "Microlit",
-  "Nice",
-  "Oxy 99",
-  "Polylab",
-  "Remi",
-  "Sigma Aldrich",
-  "SRL",
-  "Stanbio",
-  "Whatman"
-];
+bool isEmailValid(String email) => emailRegExp2.hasMatch(email);
 
 const List<String> bannerImages = [
   "$bannerPath/banner1.jpg",
@@ -89,57 +88,3 @@ const List<String> bannerImages = [
 
 const dummyText =
     "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,";
-
-const List randomImageUrl = [
-  "https://images.pexels.com/photos/4064839/pexels-photo-4064839.jpeg",
-  "https://images.pexels.com/photos/4031467/pexels-photo-4031467.jpeg",
-  "https://images.pexels.com/photos/4031204/pexels-photo-4031204.jpeg",
-  "https://images.pexels.com/photos/2774689/pexels-photo-2774689.jpeg",
-  "https://images.pexels.com/photos/4050223/pexels-photo-4050223.jpeg",
-  "https://images.pexels.com/photos/4173257/pexels-photo-4173257.jpeg",
-  "https://images.pexels.com/photos/4173255/pexels-photo-4173255.jpeg",
-  "https://images.pexels.com/photos/4375706/pexels-photo-4375706.jpeg",
-  "https://images.pexels.com/photos/4173254/pexels-photo-4173254.jpeg",
-  "https://images.pexels.com/photos/4050226/pexels-photo-4050226.jpeg",
-  "https://images.pexels.com/photos/4283387/pexels-photo-4283387.jpeg",
-  "https://images.pexels.com/photos/4173258/pexels-photo-4173258.jpeg",
-  "https://images.pexels.com/photos/3993210/pexels-photo-3993210.jpeg",
-  "https://images.pexels.com/photos/3967564/pexels-photo-3967564.jpeg",
-  "https://images.pexels.com/photos/4606285/pexels-photo-4606285.jpeg",
-  "https://images.pexels.com/photos/3951962/pexels-photo-3951962.jpeg",
-  "https://images.pexels.com/photos/4462819/pexels-photo-4462819.jpeg",
-  "https://images.pexels.com/photos/3902886/pexels-photo-3902886.jpeg",
-  "https://images.pexels.com/photos/4014932/pexels-photo-4014932.jpeg",
-  "https://images.pexels.com/photos/39219/macbook-apple-imac-computer-39219.jpeg",
-  "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg",
-  "https://images.pexels.com/photos/4646284/pexels-photo-4646284.jpeg",
-  "https://images.pexels.com/photos/4173256/pexels-photo-4173256.jpeg",
-  "https://images.pexels.com/photos/3760803/pexels-photo-3760803.jpeg",
-  "https://images.pexels.com/photos/3931382/pexels-photo-3931382.jpeg",
-  "https://images.pexels.com/photos/3986722/pexels-photo-3986722.jpeg",
-  "https://images.pexels.com/photos/4425779/pexels-photo-4425779.jpeg",
-  "https://images.pexels.com/photos/3967580/pexels-photo-3967580.jpeg",
-  "https://images.pexels.com/photos/4698207/pexels-photo-4698207.jpeg",
-  "https://images.pexels.com/photos/4149199/pexels-photo-4149199.jpeg",
-  "https://images.pexels.com/photos/4626801/pexels-photo-4626801.jpeg",
-  "https://images.pexels.com/photos/4173259/pexels-photo-4173259.jpeg",
-  "https://images.pexels.com/photos/3943808/pexels-photo-3943808.jpeg",
-  "https://images.pexels.com/photos/4167545/pexels-photo-4167545.jpeg",
-  "https://images.pexels.com/photos/4452809/pexels-photo-4452809.jpeg",
-  "https://images.pexels.com/photos/3902884/pexels-photo-3902884.jpeg",
-  "https://images.pexels.com/photos/3772967/pexels-photo-3772967.jpeg",
-  "https://images.pexels.com/photos/4163224/pexels-photo-4163224.jpeg",
-  "https://images.pexels.com/photos/4050219/pexels-photo-4050219.",
-  "https://images.pexels.com/photos/4173213/pexels-photo-4173213.jpeg",
-  "https://images.pexels.com/photos/4173221/pexels-photo-4173221.jpeg",
-  "https://images.pexels.com/photos/4425761/pexels-photo-4425761.jpeg",
-  "https://images.pexels.com/photos/3912823/pexels-photo-3912823.jpeg",
-  "https://images.pexels.com/photos/4632495/pexels-photo-4632495.jpeg",
-  "https://images.pexels.com/photos/4614851/pexels-photo-4614851.jpeg",
-  "https://images.pexels.com/photos/3902885/pexels-photo-3902885.jpeg",
-  "https://images.pexels.com/photos/4099121/pexels-photo-4099121.jpeg",
-  "https://images.pexels.com/photos/4133909/pexels-photo-4133909.jpeg",
-  "https://images.pexels.com/photos/4064834/pexels-photo-4064834.jpeg",
-  "https://images.pexels.com/photos/3970337/pexels-photo-3970337.jpeg",
-];
-

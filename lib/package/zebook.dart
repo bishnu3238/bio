@@ -1,6 +1,10 @@
+library zebook.dart;
+
+export 'custom_decorations/constant_decoration.dart';
+export 'custom_decorations/text_field_decoration/border_input_decoration.dart';
+export 'custom_decorations/text_field_decoration/under_input_decoration.dart';
+
 /*
-
-
 
 
 
@@ -11,8 +15,12 @@ git token: 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;
 uuid: ^3.0.7
 http: ^0.13.5
 intl: ^0.17.0
+beamer: ^1.5.5 // Beamer uses the power of Router and implements all the underlying logic for you, letting you explore arbitrarily complex navigation scenarios with ease.
+flash: ^3.0.5+1 // ⚡️A highly customizable, powerful and easy-to-use alerting library for Flutter.
+showcaseview: ^2.0.3  // A Flutter package allows you to Showcase/Highlight your widgets step by step.
 shimmer: ^2.0.0
 provider: ^6.0.4
+fl_chart: ^0.63.0 // 💥 FL Chart is a highly customizable Flutter chart library that supports Line Chart, Bar Chart, Pie Chart, Scatter Chart, and Radar Chart. 💥
 jwt_decoder: ^2.0.1
 file_picker: ^5.2.4
 url_launcher: ^6.1.7
@@ -21,6 +29,7 @@ fluttertoast: ^8.1.1
 image_picker: ^0.8.6
 firebase_core: ^2.2.0
 firebase_auth: ^4.1.2
+timeline_tile: ^2.0.0             for track order delivery details
 flutter_spinkit: ^5.1.0
 connectivity_plus: ^3.0.3
 flutter_screenutil: ^5.8.2
@@ -91,3 +100,14 @@ add below code
 </queries>
 
  */
+///
+/// profile update and upload image and edit profile;
+/// in add delivery address on tap user current location make work;
+/// when select payment address unable to edit it
+/// in bulk api call;
+/// view similar review and rating;
+/// in item details page more image in slider;
+///
+///
+/// api
+/// bulk order api;

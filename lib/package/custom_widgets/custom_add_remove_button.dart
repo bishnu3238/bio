@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/class/app_constant.dart';
 import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/model/cart/cart_item.dart';
 import 'package:universal_lab/class/model/product_master/items_model.dart';
-import 'package:universal_lab/class/model/universal_lab_provider.dart';
+import 'package:universal_lab/class/model/provider.dart';
 import 'package:universal_lab/screens/home_page/sub_home_page/settings/sub_settings/setting_page_header.dart';
 import '../animation/animation_switcher.dart';
+import 'buttons/custom_buttons.dart';
 
 class CustomAddOrRemoveButtons extends StatefulWidget {
   final String itemId;
@@ -37,8 +39,9 @@ class _CustomAddOrRemoveButtonsState extends State<CustomAddOrRemoveButtons> {
         return showAddToCart
             ? Buttons(
                 text: "Add to cart",
+                color: kSuccess.withOpacity(0.8),
                 onTap: () {
-                  cart.addToCart(item);
+                  cart.addToCart(item, context);
                   setState(() => showAddToCart = false);
                 })
             : Container(

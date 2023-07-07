@@ -1,6 +1,7 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart' as t;
+import 'package:universal_lab/class/app_constant.dart';
 import 'package:universal_lab/package/text_style.dart';
 
 class CustomSnackBar {
@@ -56,26 +57,17 @@ class CustomSnackBar {
     String massage,
     Color? color, {
     String? todo,
+    Duration? duration,
     Function? onPressed,
-    int? duration,
-    double? radius,
   }) {
     ScaffoldMessenger.of(_context).hideCurrentSnackBar();
 
     return ScaffoldMessenger.of(_context).showSnackBar(
       SnackBar(
-        elevation: 3,
-        width: double.maxFinite,
-        behavior: SnackBarBehavior.floating,
-        padding: const EdgeInsets.all(8.0),
+        elevation: 1,
         backgroundColor: color ?? Colors.green,
-        duration: Duration(milliseconds: duration ?? 4000),
-        content: SizedBox(
-            width: double.maxFinite, child: Text(massage, style: stlH3())),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radius ?? 8),
-          side: BorderSide(color: Colors.brown.shade900),
-        ),
+        duration: duration ?? kDurationSCD(2),
+        content: Text(massage),
         action: SnackBarAction(
           label: todo ?? '',
           onPressed: () => onPressed!(),
@@ -85,33 +77,43 @@ class CustomSnackBar {
     );
   }
 
-  static void showToast(String message, Color color) {
-    Fluttertoast.showToast(
+  static void showToast(String message, Color color,
+      [t.ToastGravity position = t.ToastGravity.CENTER]) {
+    t.Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
+        toastLength: t.Toast.LENGTH_LONG,
+        gravity: position,
         timeInSecForIosWeb: 20,
         backgroundColor: color,
         textColor: Colors.white,
         fontSize: 16.0);
   }
 
-  static void awesomeSnack(String title, String message, ContentType type) {
-    ScaffoldMessenger.of(_context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: title,
-            titleFontSize: 15,
-            messageFontSize: 20,
-            message: message,
-            contentType: type,
-          ),
-        ),
-      );
+  // static void awesomeSnack(String title, String message, ContentType type) {
+  //   ScaffoldMessenger.of(_context)
+  //     ..hideCurrentSnackBar()
+  //     ..showSnackBar(
+  //       SnackBar(
+  //         elevation: 0,
+  //         behavior: SnackBarBehavior.floating,
+  //         backgroundColor: Colors.transparent,
+  //         content: AwesomeSnackbarContent(
+  //           title: title,
+  //           titleFontSize: 15,
+  //           messageFontSize: 20,
+  //           message: message,
+  //           contentType: type,
+  //         ),
+  //       ),
+  //     );
+  // }
+
+  static void showFlashToast(String message) {
+    _context.showToast(
+      Text(message), alignment: Alignment.center,
+      shape: const StadiumBorder(),
+      // queue: false,
+      // alignment: const Alignment(0.0, -0.3),
+    );
   }
 }

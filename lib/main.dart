@@ -1,25 +1,34 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:get_it/get_it.dart';
 import './screens/intro/universal_lab.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'class/database/db.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  DB.initHiveDatabase();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-    DB.initHiveDatabase();
+  await  getItInitialize();
 
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  } catch (e) {
-    log("******* main.dart $e *******");
-  }
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
-    (value) => runApp(const UniversalLab()),
+    (value) => runApp(
+      Phoenix(
+        child: const UniversalLab(),
+      ),
+    ),
   );
+}
+
+GetIt getIt = GetIt.instance;
+
+Future <void> getItInitialize()async{
+
+
+
+
 }

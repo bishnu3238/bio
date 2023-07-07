@@ -6,7 +6,9 @@ import '../../../class/widget_lavel_provider/notifier.dart';
 import '../../../package/text_style.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
+  final bool isHome;
+
+  const BottomNavBar({super.key, this.isHome = true});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,10 @@ class BottomNavBar extends StatelessWidget {
               icon: Icon(FontAwesomeIcons.tableCells),
               label: 'Category',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.bell),
-              label: 'Notification',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(FontAwesomeIcons.bell),
+            //   label: 'Notification',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.bagShopping),
               label: 'My Orders',
@@ -44,8 +46,12 @@ class BottomNavBar extends StatelessWidget {
             ),
           ],
           onTap: (int index) {
-            bottomNavIndexNotifier.navIndex = index;
-            bottomNavIndexNotifier.willPop = index == 0;
+            !isHome
+                ? bottomNavIndexNotifier.pageGo(index, context)
+                : {
+                    bottomNavIndexNotifier.navIndex = index,
+                    bottomNavIndexNotifier.willPop = index == 0,
+                  };
           },
         );
       },

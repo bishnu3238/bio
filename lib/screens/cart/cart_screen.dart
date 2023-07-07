@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:universal_lab/class/master.dart';
-import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
-
+import 'package:universal_lab/package/custom_widgets/user_icon.dart';
+import '../../class/master.dart';
+import '../../package/custom_widgets/app_bars/app_bar.dart';
+import '../../package/custom_widgets/point_icon.dart';
 import 'sub_cart/cart_body.dart';
 import 'sub_cart/cart_check_out.dart';
 
@@ -11,10 +12,13 @@ class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    BioCellar.initialize(context);
+    Master.initialize(context);
     return const Scaffold(
-      appBar: AppAppBar(title: "Cart"),
-      body: Body(),
+      appBar: AppAppBar(title: "Cart", tPosition: false, buttons: [
+        // PointIcon(),
+        UserIcon()
+      ]),
+      body: CartBody(),
       bottomNavigationBar: CheckoutCard(),
     );
   }

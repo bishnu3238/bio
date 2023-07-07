@@ -4,7 +4,6 @@ import 'package:universal_lab/class/enums.dart';
 import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
 import 'package:universal_lab/package/loading_button.dart';
-import 'package:universal_lab/package/navigate.dart';
 import 'package:universal_lab/screens/home_page/home_page.dart';
 
 class UserName extends StatelessWidget {
@@ -111,7 +110,8 @@ class UserName extends StatelessWidget {
                               color: Colors.redAccent.shade400,
                               text: "Continue",
                               onPressed: ()=>
-                                  Navigate.go(context, const HomePage())
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const HomePage()))
                           ),
                         ],
                       ),

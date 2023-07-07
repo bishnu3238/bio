@@ -7,10 +7,9 @@ import 'package:universal_lab/package/text_style.dart';
 import 'package:universal_lab/search/searchAllInBioCellar.dart';
 
 import '../../class/model/cart/cart.dart';
-import '../../class/model/universal_lab_provider.dart';
+import '../../class/model/provider.dart';
 import '../../screens/cart/cart_screen.dart';
 import '../../search/search_filter_provider.dart';
-import '../navigate.dart';
 
 class SearchIcon extends StatelessWidget {
   const SearchIcon({Key? key}) : super(key: key);
@@ -21,8 +20,7 @@ class SearchIcon extends StatelessWidget {
       builder: (context, provide, _) {
         return IconButton(
           onPressed: () {
-            // showSearch(context: context, delegate: SearchAllInBioCellar(provide));
-
+            SearchFilterProvider.initialize(context);
             SearchFilterProvider().searchAllInBioCellar();
           },
           icon: const Icon(Icons.search),

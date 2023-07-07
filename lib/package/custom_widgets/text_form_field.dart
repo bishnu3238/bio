@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hintText,
-     this.prefixIcon,
+    this.prefixIcon,
     this.validator,
     this.onChanged,
     this.suffixIcon,
@@ -42,22 +42,24 @@ class CustomTextField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
             hintText: hintText,
-            prefixIcon: Icon(prefixIcon, color: Colors.blueGrey[800], size: 20),
+            prefixIcon: prefixIcon == null
+                ? const SizedBox()
+                : Icon(prefixIcon, color: Colors.blueGrey[800], size: 20),
             isDense: true,
             enabled: true,
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: const BorderSide(
                 // color: Theme.of(context).colorScheme.onPrimary,
                 width: 2.0,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
                 color: Colors.grey.shade400,
                 width: 1.0,

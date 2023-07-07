@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/app_constant.dart';
-import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 import 'package:universal_lab/package/size_config.dart';
-
+import 'package:universal_lab/package/text_style.dart';
 import '../../../../../package/custom_widgets/app_bars/sliver_appbar_delegate.dart';
+import '../../../../../class/widget_lavel_provider/sort_bar_notifier.dart';
 
 class SortBar extends StatelessWidget {
   const SortBar({Key? key}) : super(key: key);
@@ -19,21 +19,21 @@ class SortBar extends StatelessWidget {
         maxHeight: 60,
         child: Container(
           padding: const EdgeInsets.only(left: 5),
-          color: Colors.white,
-          child: Consumer<Notifier>(
-            builder: (context, notify, _) {
-              List sortingButtons = notify.sortingButtons;
+          color: kLight,
+          child: Consumer<SortBarNotifier>(
+            builder: (context, sortBar, _) {
+              List sortingButtons = sortBar.sortingButtons;
               return ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return ActionChip(
                     elevation: 3,
-                    backgroundColor: Colors.white,
+                    backgroundColor: kLight,
                     avatar: FaIcon(sortingButtons[index]['icon'], size: 15),
                     label: Text(sortingButtons[index]['label']),
                     onPressed: () {
-                      notify.sortingIndex = index;
-                      notify.onSortingBarTap(context);
+                      sortBar.sortingIndex = index;
+                      sortBar.onSortingBarTap(context);
                     },
                   );
                 },
@@ -63,27 +63,27 @@ class SortBar2 extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(left: 5),
           width: getProportionateScreenWidth(375),
-          color: Colors.white,
-          child: Consumer<Notifier>(
-            builder: (context, notify, _) {
-              List sortingButtons = notify.sortingButtons;
+          color: kLight,
+          child: Consumer<SortBarNotifier>(
+            builder: (context, sortBar, _) {
+              List sortingButtons = sortBar.sortingButtons;
               return ListView.separated(
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                      width: getProportionateScreenWidth((kLayoutWidth) / 2),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: TextButton.icon(
-                        icon: FaIcon(sortingButtons[index]['icon'], size: 15),
-                        label: Text(sortingButtons[index]['label']),
-                        onPressed: () {
-                          notify.sortingIndex = index;
-                          notify.onSortingBarTap(context);
-                        },
-                      ));
+                    width: getProportionateScreenWidth((kLayoutWidth) / 2),
+                    decoration: const BoxDecoration(color: kLight),
+                    child: TextButton.icon(
+                      icon: FaIcon(sortingButtons[index]['icon'],
+                          size: 15, color: kDBlue),
+                      label: Text(sortingButtons[index]['label'], style: stlL),
+                      onPressed: () {
+                        sortBar.sortingIndex = index;
+                        sortBar.onSortingBarTap(context);
+                      },
+                    ),
+                  );
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return const Padding(padding: EdgeInsets.all(8));

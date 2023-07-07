@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/app_constant.dart';
-
 import '../../../class/model/cart/cart.dart';
 import '../../../package/custom_widgets/empty_cart.dart';
 import '../../../package/size_config.dart';
 import 'cart_card.dart';
 
-class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+class CartBody extends StatefulWidget {
+  const CartBody({Key? key}) : super(key: key);
 
   @override
-  State<Body> createState() => _BodyState();
+  State<CartBody> createState() => _CartBodyState();
 }
 
-class _BodyState extends State<Body> {
+class _CartBodyState extends State<CartBody> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Cart>(
@@ -24,8 +21,10 @@ class _BodyState extends State<Body> {
             ? const EmptyCart()
             : Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
+                  horizontal: getProportionateScreenWidth(20),
+                ),
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: cart.cartItem.length,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),

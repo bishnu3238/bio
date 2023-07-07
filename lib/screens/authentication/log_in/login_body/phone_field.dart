@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:universal_lab/class/app_constant.dart';
 
 class PhoneField extends StatelessWidget {
   final String hint;
-  final Function(PhoneNumber) onNumberChange;
+  final Function(PhoneNumber)? onNumberChange;
   final Function(Country)? onCountryChange;
+  final Function(String)? onDone;
 
   final TextEditingController phone;
 
-  const PhoneField(
-      {Key? key,
-      required this.phone,
-      required this.hint,
-      required this.onNumberChange,
-      this.onCountryChange})
-      : super(
+  const PhoneField({
+    Key? key,
+    required this.phone,
+    required this.hint,
+     this.onNumberChange,
+    this.onCountryChange,
+    this.onDone
+  }) : super(
           key: key,
         );
 
@@ -32,18 +35,18 @@ class PhoneField extends StatelessWidget {
       dropdownIconPosition: IconPosition.trailing,
       flagsButtonPadding: const EdgeInsets.only(left: 8),
       decoration: InputDecoration(
-          enabled: true,
-          isDense: true,
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent),
-          ),
-          labelText: hint,
-          labelStyle: theme.titleSmall!.copyWith(
-            color: Colors.blueGrey.shade900,
-          ),
-          border: const OutlineInputBorder()),
+        enabled: true,
+        isDense: true,
+        labelText: hint,
+        border: const OutlineInputBorder(),
+        labelStyle: theme.titleSmall!.copyWith(color: kDBlue),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: kPrimeColor),
+        ),
+      ),
       onChanged: (number) => onNumberChange!(number),
       onCountryChanged: (cty) => onCountryChange!(cty),
+      onSubmitted: (done)=>onDone!(done),
     );
   }
 }

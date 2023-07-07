@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:universal_lab/class/app_constant.dart';
-import 'package:universal_lab/class/model/universal_lab_provider.dart';
+import 'package:universal_lab/class/model/provider.dart';
 import 'package:universal_lab/package/text_style.dart';
 import 'search_data_provider.dart';
 

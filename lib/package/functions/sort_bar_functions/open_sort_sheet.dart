@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/class/enums.dart';
+import 'package:universal_lab/class/model/provider.dart';
+import 'package:universal_lab/methods/static_methods.dart';
 import '../../text_style.dart';
 
 openSortSheet(BuildContext context) {
@@ -25,54 +28,72 @@ openSortSheet(BuildContext context) {
               ),
             ),
             const Divider(height: 0),
-            buildSortingOption(
-              'Best Seller',
-              Colors.white,
-              onPressed: () {
-                // TODO: Handle sorting by best seller
-                Navigator.pop(context);
+            Expanded(
+                child: ListView.builder(
+              itemCount: SortOptions.values.length,
+              itemBuilder: (ctx, index) {
+                return buildSortingOption(
+                  getSortOptionText(SortOptions.values[index]),
+                  index.isEven ? kLight : Colors.grey[200],
+                  onPressed: () {
+                    // TODO: Handle sorting by best seller
+                    context
+                        .read<Provide>()
+                        .itemsFromSearchType(ItemSearchType.Sort, "$index");
+                    Navigator.of(context).pop();
+                    // Navigate.gotogo(context, const ItemsBySorting());
+                  },
+                );
               },
-            ),
-            buildSortingOption(
-              'Price',
-              Colors.grey[200],
-              onPressed: () {
-                // TODO: Handle sorting by price
-                Navigator.pop(context);
-              },
-            ),
-            buildSortingOption(
-              'Discount',
-              Colors.white,
-              onPressed: () {
-                // TODO: Handle sorting by discount
-                Navigator.pop(context);
-              },
-            ),
-            buildSortingOption(
-              'Customer Rating',
-              Colors.grey[200],
-              onPressed: () {
-                // TODO: Handle sorting by customer rating
-                Navigator.pop(context);
-              },
-            ),
-            buildSortingOption(
-              'A-Z',
-              Colors.white,
-              onPressed: () {
-                // TODO: Handle sorting A-Z
-                Navigator.pop(context);
-              },
-            ),
-            buildSortingOption(
-              'Z-A',
-              Colors.grey[200],
-              onPressed: () {
-                // TODO: Handle sorting Z-A
-                Navigator.pop(context);
-              },
-            ),
+            )),
+            // buildSortingOption(
+            //   'Best Seller',
+            //   Colors.white,
+            //   onPressed: () {
+            //     // TODO: Handle sorting by best seller
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // buildSortingOption(
+            //   'Price',
+            //   Colors.grey[200],
+            //   onPressed: () {
+            //     // TODO: Handle sorting by price
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // buildSortingOption(
+            //   'Discount',
+            //   Colors.white,
+            //   onPressed: () {
+            //     // TODO: Handle sorting by discount
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // buildSortingOption(
+            //   'Customer Rating',
+            //   Colors.grey[200],
+            //   onPressed: () {
+            //     // TODO: Handle sorting by customer rating
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // buildSortingOption(
+            //   'A-Z',
+            //   Colors.white,
+            //   onPressed: () {
+            //     // TODO: Handle sorting A-Z
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // buildSortingOption(
+            //   'Z-A',
+            //   Colors.grey[200],
+            //   onPressed: () {
+            //     // TODO: Handle sorting Z-A
+            //     Navigator.pop(context);
+            //   },
+            // ),
           ],
         ),
       );

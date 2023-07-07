@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_lab/class/app_constant.dart';
 import 'package:universal_lab/class/enums.dart';
-import 'package:universal_lab/class/model/universal_lab_provider.dart';
+import 'package:universal_lab/class/master.dart';
+import 'package:universal_lab/class/model/provider.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
-import 'package:universal_lab/package/navigate.dart';
+import 'package:universal_lab/package/custom_widgets/custom_image.dart';
 import 'package:universal_lab/package/size_config.dart';
 
 import '../items/items_by_type.dart';
@@ -14,6 +14,7 @@ class Brands extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Master.initialize(context);
     return Scaffold(
       appBar: const AppAppBar(title: "Brands"),
       body: Consumer<Provide>(
@@ -29,11 +30,12 @@ class Brands extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         //TODO:show brand items
-                        Navigate.go(
-                          context,
+                        context.read<Provide>().itemsFromSearchType(
+                            ItemSearchType.Brand, brands[index].id);
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx)=>
                           ItemsByType(
                             type: ItemSearchType.Brand,
-                            id: brands[index].id,
+                            id: brands[index].id,)
                           ),
                         );
                       },
@@ -49,15 +51,16 @@ class Brands extends StatelessWidget {
                             Card(
                               elevation: 0,
                               child: SizedBox(
-                                height: getProportionateScreenHeight(60),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    brands[index].image,
-                                    fit: BoxFit.fill,
+                                  height: getProportionateScreenHeight(60),
+                                  child: CustomImage(brands[index].image)
+                                  // ClipRRect(
+                                  //   borderRadius: BorderRadius.circular(10),
+                                  //   child: Image.asset(
+                                  //     brands[index].image,
+                                  //     fit: BoxFit.fill,
+                                  //   ),
+                                  // ),
                                   ),
-                                ),
-                              ),
                             ),
                             Center(
                               child: FittedBox(
@@ -82,7 +85,6 @@ class Brands extends StatelessWidget {
                   crossAxisSpacing: 0,
                   mainAxisSpacing: 15,
                 ),
-
               )
             ],
           );

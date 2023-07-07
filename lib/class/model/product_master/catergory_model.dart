@@ -1,9 +1,18 @@
+
+
+import 'package:universal_lab/class/app_constant.dart';
+
 import 'brand_model.dart';
+
+List<CategoryModel> categoriesFromJson(dynamic jsonData) =>
+    List<CategoryModel>.from(
+        jsonData['Data'].map((e) => CategoryModel.fromMap(e)));
 
 class CategoryModel {
   final String id;
   final String name;
   final String image;
+  final String status;
   // final List<BrandModel>? brands;
   // final List<CategoryModel>? subCategory;
 
@@ -12,6 +21,7 @@ class CategoryModel {
     required this.id,
     required this.name,
     required this.image,
+    required this.status,
     // this.brands,
     // this.subCategory,
   });
@@ -20,13 +30,15 @@ class CategoryModel {
     String? id,
     String? name,
     String? image,
+    String? status,
     // List<BrandModel>? brands,
     // List<CategoryModel>? subCategory,
   }) {
     return CategoryModel(
       id: id ?? this.id,
-      name:name ?? this.name,
+      name: name ?? this.name,
       image: image ?? this.image,
+      status: status ?? this.status,
       // brands: brands ?? this.brands,
       // subCategory: subCategory ?? this.subCategory,
     );
@@ -37,23 +49,21 @@ class CategoryModel {
       'id': id,
       'name': name,
       'image': image,
+      'status': status,
       // 'brands': brands!.map((e) => e.toMap())
     };
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] as String,
-      name: map['categoryName'] as String,
-      image: map['image'] as String,
+      id: map['id'].toString(),
+      name: map['category_name'].toString(),
+      image: "$categoryImgDir/${map['image']}",
+      status: map['status'].toString(),
+
       // brands: [],
       // subCategory: [],
     );
-
-
-
-
-
   }
 
 //</editor-fold>

@@ -1,26 +1,22 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:firebase_auth/firebase_auth.dart' as u;
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:universal_lab/methods/static_methods.dart';
 
-import '../../enums.dart';
-part 'user_model.g.dart';
-
-@HiveType(typeId: 0)
-class User extends HiveObject with ChangeNotifier {
-  @HiveField(0)
+class User extends ChangeNotifier {
   late String uid;
 
-  @HiveField(1)
   late String name;
 
-  @HiveField(2)
   late String email;
 
-  @HiveField(3)
   late String photoURL;
 
-  @HiveField(4)
   late String phoneNO;
+
+  late String id;
 
   //<editor-fold desc="Data Methods">
   User({
@@ -29,10 +25,12 @@ class User extends HiveObject with ChangeNotifier {
     required this.name,
     required this.photoURL,
     required this.phoneNO,
+    required this.id,
   });
 
   User copyWith({
     String? uid,
+    String? id,
     String? email,
     String? name,
     String? photoURL,
@@ -40,6 +38,7 @@ class User extends HiveObject with ChangeNotifier {
   }) {
     return User(
       uid: uid ?? this.uid,
+      id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? this.name,
       photoURL: photoURL ?? this.photoURL,
@@ -60,6 +59,7 @@ class User extends HiveObject with ChangeNotifier {
   factory User.fromMap(Map<String, dynamic>? map) {
     return User(
       uid: map == null ? "" : map['uid'] as String,
+      id: map == null ? "" : map['id'] as String,
       email: map == null ? "" : map['email'] as String,
       name: map == null ? "" : map['name'] as String,
       photoURL: map == null ? "" : map['photoURL'] as String,
@@ -70,10 +70,144 @@ class User extends HiveObject with ChangeNotifier {
   factory User.fromFirebase(u.User user) {
     return User(
       uid: user.uid,
+      id: "",
       email: user.email ?? "",
       name: user.displayName ?? "",
       photoURL: user.photoURL ?? "",
       phoneNO: user.phoneNumber ?? "",
+    );
+  }
+
+//</editor-fold>
+}
+
+class UserModel {
+  final String id, name, mobile_no, password, job_role, referal_code, status;
+  final String? email, referal_by, image, gender;
+  final DateTime date, time;
+
+//<editor-fold desc="Data Methods">
+  const UserModel({
+    required this.id,
+    required this.name,
+    required this.mobile_no,
+    required this.password,
+    required this.job_role,
+    required this.referal_code,
+    required this.status,
+    this.email,
+    this.referal_by,
+    this.image,
+    this.gender,
+    required this.date,
+    required this.time,
+  });
+
+  @override
+  String toString() {
+    return 'UserModel{ id: $id, name: $name, mobile_no: $mobile_no, password: $password, job_role: $job_role, referal_code: $referal_code, status: $status, email: $email, referal_by: $referal_by, image: $image, gender: $gender, data: $date, time: $time,}';
+  }
+
+  UserModel copyWith({
+    String? id,
+    String? name,
+    String? mobile_no,
+    String? password,
+    String? job_role,
+    String? referal_code,
+    String? status,
+    String? email,
+    String? referal_by,
+    String? image,
+    String? gender,
+    DateTime? date,
+    DateTime? time,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      mobile_no: mobile_no ?? this.mobile_no,
+      password: password ?? this.password,
+      job_role: job_role ?? this.job_role,
+      referal_code: referal_code ?? this.referal_code,
+      status: status ?? this.status,
+      email: email ?? this.email,
+      referal_by: referal_by ?? this.referal_by,
+      image: image ?? this.image,
+      gender: gender ?? this.gender,
+      date: date ?? this.date,
+      time: time ?? this.time,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'mobile_no': mobile_no,
+      'password': password,
+      'job_role': job_role,
+      'referal_code': referal_code,
+      'status': status,
+      'email': email,
+      'referal_by': referal_by,
+      'image': image,
+      'gender': gender,
+      'date': date.toString(),
+      'time': time.toString(),
+    };
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          mobile_no == other.mobile_no &&
+          password == other.password &&
+          job_role == other.job_role &&
+          referal_code == other.referal_code &&
+          status == other.status &&
+          email == other.email &&
+          referal_by == other.referal_by &&
+          image == other.image &&
+          gender == other.gender &&
+          date == other.date &&
+          time == other.time;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      mobile_no.hashCode ^
+      password.hashCode ^
+      job_role.hashCode ^
+      referal_code.hashCode ^
+      status.hashCode ^
+      email.hashCode ^
+      referal_by.hashCode ^
+      image.hashCode ^
+      gender.hashCode ^
+      date.hashCode ^
+      time.hashCode;
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      mobile_no: map['mobile_no'] as String,
+      password: map['password'] as String,
+      job_role: map['job_role'] as String,
+      referal_code: map['referal_code'] as String,
+      status: map['status'] as String,
+      email: map['email'],
+      referal_by: map['referal_by'],
+      image: map['image'],
+      gender: map['gender'],
+      date: convertDate(map['date']),
+      time: convertTime(map['time']),
     );
   }
 

@@ -13,11 +13,7 @@ class IntroBody extends StatelessWidget {
     return Container(
       height: size.height - kToolbarHeight,
       width: size.width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF2874F0), Colors.indigoAccent],
-        ),
-      ),
+      decoration:  BoxDecoration(gradient:  kGradient([kPrimeColor, kIndigo])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,6 +22,7 @@ class IntroBody extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("Loading", style: theme!.copyWith(color: Colors.white)),
               const SizedBox(width: 10),

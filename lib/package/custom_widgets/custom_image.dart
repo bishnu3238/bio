@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../size_config.dart';
@@ -21,20 +22,59 @@ class CustomImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius!),
-      child: FadeInImage.assetNetwork(
-        placeholder: "assets/logo/b.jpeg",
-        placeholderCacheWidth: width!.toInt(),
-
-        image: img,
+      child: CachedNetworkImage(
+        placeholder: (ctx, img) => Image.asset("assets/logo/b.jpeg"),
+        // placeholderCacheWidth: getProportionateScreenWidth(width!).toInt(),
+        imageUrl: img,
         fit: fit,
         height: getProportionateScreenHeight(height!),
-        width: width,
-        imageErrorBuilder: (ctx, obj, trash) {
+        width: getProportionateScreenWidth(width!),
+        errorWidget: (ctx, obj, trash) {
           return Image.asset(
             "assets/logo/b.jpeg",
             fit: BoxFit.cover,
-            width: width!,
+            width: getProportionateScreenWidth(width!),
             height: getProportionateScreenHeight(height!),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+
+class Pictures extends StatelessWidget {
+  final String img;
+  final double? radius;
+  final double? height;
+  final double? width;
+  final BoxFit? fit;
+
+  const Pictures(this.img,
+      {Key? key,
+        this.fit = BoxFit.fill, this.radius, this.height, this.width,
+   })
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius!),
+      child: CachedNetworkImage(
+        placeholder: (ctx, img) => Image.asset("assets/logo/b.jpeg"),
+        imageUrl: img,
+        fit: fit,
+        // height: getProportionateScreenHeight(height!),
+        // width: getProportionateScreenWidth(width!),
+        errorWidget: (ctx, obj, trash) {
+          return Image.asset(
+            "assets/logo/b.jpeg",
+            fit: BoxFit.cover,
+            // width: getProportionateScreenWidth(width!),
+            // height: getProportionateScreenHeight(height!),
           );
         },
       ),

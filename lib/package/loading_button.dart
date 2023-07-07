@@ -26,49 +26,54 @@ class _LoadingButtonState extends State<LoadingButton> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Consumer<Notifier>(builder: (context, notifier, _) {
-        return ElevatedButton(
-          onPressed:
-              widget.onPressed == null ? null : () => widget.onPressed!(),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 13),
-            backgroundColor: widget.color ?? Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+      child: Consumer<Notifier>(
+        builder: (context, notifier, _) {
+          return ElevatedButton(
+            onPressed: widget.onPressed == null
+                ? null
+                : notifier.loading
+                    ? null
+                    : () => widget.onPressed!(),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 13),
+              backgroundColor: widget.color ?? Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ),
-          child: notifier.loading
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Waiting",
-                      style: GoogleFonts.rubikBurned(
-                          color: Colors.white,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w700),
+            child: notifier.loading
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Waiting",
+                        style: GoogleFonts.rubikBurned(
+                            color: Colors.white,
+                            letterSpacing: 1.5,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(width: 10),
+                      SpinKitDualRing(
+                        color: widget.color != null
+                            ? Colors.white
+                            : Colors.redAccent.shade200,
+                        size: 20,
+                      ),
+                    ],
+                  )
+                : Text(
+                    widget.text,
+                    style: TextStyle(
+                      color: widget.color == null
+                          ? const Color(0xFF2E2F60)
+                          : Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(width: 10),
-                    SpinKitDualRing(
-                      color: widget.color != null
-                          ? Colors.white
-                          : Colors.redAccent.shade200,
-                      size: 20,
-                    ),
-                  ],
-                )
-              : Text(
-                  widget.text,
-                  style: TextStyle(
-                    color: widget.color == null
-                        ? const Color(0xFF2E2F60)
-                        : Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

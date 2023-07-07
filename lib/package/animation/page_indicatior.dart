@@ -13,12 +13,38 @@ class PageIndicator extends StatelessWidget {
       builder: (context, notifier, _) {
         return AnimatedContainer(
           duration: kAnimationDuration,
+          curve: Curves.easeIn,
           margin: const EdgeInsets.only(right: 5),
           height: 6,
           width: notifier.pageIndicator == index ? 20 : 6,
           decoration: BoxDecoration(
             color: notifier.pageIndicator == index
-                ? kBlue
+                ? kDark
+                : const Color(0xFFD8D8D8),
+            borderRadius: BorderRadius.circular(3),
+          ),
+        );
+      },
+    );
+  }
+}
+class ItemImageIndicator extends StatelessWidget {
+  final int index;
+  const ItemImageIndicator({Key? key, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Notifier>(
+      builder: (context, notifier, _) {
+        return AnimatedContainer(
+          duration: kAnimationDuration,
+          curve: Curves.easeIn,
+          margin: const EdgeInsets.only(right: 5),
+          height: 6,
+          width: notifier.itemImageIndicator == index ? 20 : 6,
+          decoration: BoxDecoration(
+            color: notifier.itemImageIndicator == index
+                ? kDark
                 : const Color(0xFFD8D8D8),
             borderRadius: BorderRadius.circular(3),
           ),

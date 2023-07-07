@@ -6,10 +6,10 @@ import 'package:universal_lab/class/model/cart/cart.dart';
 import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 import 'package:universal_lab/package/animation/page_indicatior.dart';
 
-class ImageSlider extends StatelessWidget {
+class ImageSliders extends StatelessWidget {
   final Function(dynamic) onTap;
 
-  const ImageSlider({Key? key, required this.onTap}) : super(key: key);
+  const ImageSliders({Key? key, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

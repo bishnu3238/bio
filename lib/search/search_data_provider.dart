@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:universal_lab/class/app_constant.dart';
 
 import '../class/enums.dart';
-import '../class/model/universal_lab_provider.dart';
+import '../class/model/provider.dart';
 import '../package/custom_widgets/custom_image.dart';
 
 class SearchDataProvider {
@@ -33,7 +34,7 @@ class SearchDataProvider {
       itemBuilder: (ctx, index) {
         return ListTile(
           onTap: () => onTap(searchResult[index]),
-          leading: CircleAvatar(
+          leading: CircleAvatar(backgroundColor: kLight,
             child: CustomImage(searchResult[index].image),
           ),
           title: Text(searchResult[index].name),

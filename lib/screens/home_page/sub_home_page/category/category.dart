@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/master.dart';
-import 'package:universal_lab/class/model/universal_lab_provider.dart';
+import 'package:universal_lab/class/model/provider.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
-import 'package:universal_lab/package/navigate.dart';
+import 'package:universal_lab/package/custom_widgets/custom_image.dart';
+import 'package:universal_lab/package/custom_widgets/user_icon.dart';
 import 'package:universal_lab/package/text_style.dart';
 
+import '../../../../class/enums.dart';
 import '../../../items/items_page.dart';
 
 class Category extends StatelessWidget {
@@ -14,13 +16,16 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BioCellar.initialize(context);
+    Master.initialize(context);
     return Scaffold(
-      appBar: const AppAppBar(title: "Category", tPosition: false),
+      appBar: const AppAppBar(
+        title: "Category",
+        tPosition: false,
+        buttons: [UserIcon()],
+      ),
       body: Consumer<Provide>(
         builder: (context, provide, _) {
           var categories = provide.category;
-          // var isExpanded = List.filled(categories.length, false);
           return CustomScrollView(
             slivers: [
               SliverList(
@@ -29,10 +34,15 @@ class Category extends StatelessWidget {
                   (context, index) {
                     var category = categories[index];
                     return ListTile(
-                      onTap: () => Navigate.go(
-                        context,
-                        ItemsPage(id: category.id),
-                      ),
+                      onTap: () {
+                        context.read<Provide>().itemsFromSearchType(
+                            ItemSearchType.Category, category.id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => ItemsPage(id: category.id)),
+                        );
+                      },
                       shape: Border(
                           bottom: BorderSide(color: Colors.grey.shade200)),
                       leading: Card(
@@ -40,10 +50,11 @@ class Category extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                              AssetImage("assets/icons/${category.image}"),
+                        child: CustomImage(
+                          radius: 50,
+                          category.image,
+                          height: 40,
+                          width: 40,
                         ),
                       ),
                       title: Text(
@@ -56,10 +67,11 @@ class Category extends StatelessWidget {
                           color: Colors.black,
                           FontAwesomeIcons.angleRight,
                         ),
-                        onPressed: () => Navigate.go(
-                          context,
-                          ItemsPage(id: category.id),
-                        ),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (ctx) => ItemsPage(id: category.id),
+                            )),
                       ),
                     );
                   },

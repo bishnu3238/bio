@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:universal_lab/class/app_constant.dart';
 
 import 'size_config.dart';
 
@@ -43,10 +44,10 @@ final stlH2 = GoogleFonts.ubuntuMono(
   // height: 1.5,
 );
 stlH3([Color? color]) => GoogleFonts.tiroTelugu(
-      fontSize: getProportionateScreenWidth(20),
+      fontSize: getProportionateScreenWidth(18),
       fontWeight: FontWeight.bold,
       color: color ?? Colors.black,
-      height: 1.5,
+      height: 1.3,
     );
 
 final stlH4 = GoogleFonts.markoOne(
@@ -81,8 +82,17 @@ final stlL = GoogleFonts.joan(
   fontWeight: FontWeight.w600,
 );
 
-stlBtn(Color? color) => GoogleFonts.habibi(
+stlBtn([Color? color]) => GoogleFonts.habibi(
       fontSize: 15.0,
-      color: color ?? Colors.blueGrey[900],
+      color: color ?? kDBlue,
       fontWeight: FontWeight.w500,
     );
+
+final stlTimes = GoogleFonts.akayaKanadaka(
+  fontSize: getProportionateScreenWidth(22),
+  fontWeight: FontWeight.w400,
+  color: kDark,
+  // height: 1.5,
+);
+
+final stlight = GoogleFonts.montserrat();

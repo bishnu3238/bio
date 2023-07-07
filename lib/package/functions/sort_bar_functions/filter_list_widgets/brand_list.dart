@@ -1,20 +1,24 @@
+import 'dart:core';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/enums.dart';
 import 'package:universal_lab/class/model/product_master/brand_model.dart';
 import 'package:universal_lab/class/model/product_master/catergory_model.dart';
+import 'package:universal_lab/class/widget_lavel_provider/sort_bar_notifier.dart';
 import 'package:universal_lab/screens/items/items_by_type.dart';
 
-import '../../../../class/model/universal_lab_provider.dart';
+import '../../../../class/model/provider.dart';
 import '../../../../screens/items/item_details/item_details.dart';
 import '../../../../screens/items/items_page.dart';
-import '../../../navigate.dart';
 import '../../../size_config.dart';
 import '../../../text_style.dart';
 
 class FilterBrandList extends StatefulWidget {
- const FilterBrandList({Key? key}) : super(key: key);
+  const FilterBrandList({Key? key}) : super(key: key);
 
   @override
   State<FilterBrandList> createState() => _FilterBrandListState();
@@ -33,45 +37,50 @@ class _FilterBrandListState extends State<FilterBrandList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      color: Colors.grey[50],
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: brands.length,
         itemBuilder: (ctx, index) {
           var brand = brands[index];
-          bool value = false;
           return ListTile(
-              onTap: () => Navigate.go(
-                    context,
-                    ItemsPage(id: brand.id),
-                  ),
-              shape: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-              leading: Card(
-                margin: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage(brand.image),
-                ),
+            onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>  ItemsPage(id: brand.id))),
+            shape: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+            leading: Card(
+              margin: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
               ),
-              title: Text(
-                brand.name,
-                style: txStl(15, Colors.black87, FontWeight.w500),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: CachedNetworkImageProvider(brand.image),
               ),
-              trailing: Checkbox(
-                  value: values[index],
-                  onChanged: (value) =>
-                      setState(() => values[index] = value!)));
-        });
+            ),
+            title: Text(
+              brand.name,
+              style: txStl(15, Colors.black87, FontWeight.w500),
+            ),
+            trailing: Consumer<SortBarNotifier>(builder: (context, sortBar, _) {
+              return Checkbox(
+                value: sortBar.selectedBrand[index],
+                onChanged: (value) =>
+                    setState(() => sortBar.selectedBrand[index] = value!),
+              );
+            }),
+          );
+        },
+      ),
+    );
   }
 
   _build(BuildContext ctx, int i, CategoryModel category) {
     return InkWell(
       onTap: () {
-        Navigate.go(
-          ctx,
-          ItemsByType(type: ItemSearchType.Category, id: category.id),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>  ItemsByType(type: ItemSearchType.Category, id: category.id)))
+       ;
       },
       child: Column(
         children: [

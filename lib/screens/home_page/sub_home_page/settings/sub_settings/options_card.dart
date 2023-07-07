@@ -3,24 +3,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:universal_lab/package/text_style.dart';
 
 class OptionsCard extends StatelessWidget {
-  final String title;
+  final String? title;
+  final double? elevation;
   final List<Widget> listOfWidget;
 
-  const OptionsCard({Key? key, required this.title, required this.listOfWidget})
+
+  const OptionsCard({Key? key, this.title, required this.listOfWidget, this.elevation = 2})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: elevation,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.none,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(title, style: stlT),
-          const SizedBox(height: 20),
+          if (title != null) ...[
+            Text(title!, style: stlT),
+            const SizedBox(height: 20),
+          ],
           ...listOfWidget,
         ]),
       ),
