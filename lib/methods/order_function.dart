@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../class/model/http_services.dart';
 
-void orderFunction(BuildContext context) {
+Future<bool> orderFunction(BuildContext context) async {
   HttpServices.initialize(context);
-  Future.delayed(
+ return Future.delayed(
     const Duration(seconds: 1),
     () async {
-      await HttpServices().getUserOrders().then((value) async {
+      return await HttpServices().getUserOrders().then((value) async {
         log(value.toString());
+        return true;
       });
     },
   );

@@ -99,7 +99,12 @@ class DoneButton extends StatelessWidget {
       alignment: Alignment.center,
       child: TextButton(
         onPressed: () {
-          Phoenix.rebirth(context);
+          // Phoenix.rebirth(context);
+          context.read<Notifier>().navIndex = 2;
+          Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (ctx) {
+            return const HomePage();
+          }), (route) => false);
           // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=> const Intro()), (route) => false);
         },
         child: Text(

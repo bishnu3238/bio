@@ -39,7 +39,7 @@ class BulkOrder extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (ctx) => PlaceBulkOrder(_item)))
                       : CustomSnackBar.showToast('You have to login first',
-                          kDark.withOpacity(0.3), ToastGravity.TOP));
+                          kDark.withOpacity(0.8), ToastGravity.TOP));
             },
             child: const Text("now")),
       )

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/package/custom_snack_bar.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
 import 'package:universal_lab/package/custom_widgets/user_icon.dart';
 import '../../../../methods/order_function.dart';
@@ -12,15 +16,31 @@ class MyOrders extends StatefulWidget {
   State<MyOrders> createState() => _MyOrdersState();
 }
 
-class _MyOrdersState extends State<MyOrders>
-    with SingleTickerProviderStateMixin {
+class _MyOrdersState extends State<MyOrders> with TickerProviderStateMixin {
   late final _tabController = TabController(length: 2, vsync: this);
+  late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-
     orderFunction(context);
+
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void startRotation() {
+    _controller.repeat();
+  }
+
+  void stopRotation() {
+    _controller.stop();
   }
 
   @override
@@ -43,6 +63,22 @@ class _MyOrdersState extends State<MyOrders>
           CurrentOrder(),
           History(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kDBlue,
+        onPressed: () {
+          startRotation();
+
+          orderFunction(context).then((value) {
+            stopRotation();
+            CustomSnackBar.showToast(
+                'Updated', kDark.withOpacity(0.5), ToastGravity.BOTTOM);
+          });
+        },
+        child: RotationTransition(
+          turns: _controller,
+          child: const FaIcon(FontAwesomeIcons.arrowsRotate),
+        ),
       ),
     );
   }

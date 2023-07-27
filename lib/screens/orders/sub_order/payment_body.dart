@@ -47,7 +47,7 @@ class PaymentBody extends StatelessWidget {
                   //     style: stlH4.copyWith(fontWeight: FontWeight.w300)),
                   const TextSpan(
                       text:
-                          'and send the payment screenshot on our WhatsApp number. '),
+                          ' and send the payment screenshot on our WhatsApp number. '),
                   TextSpan(
                       text: '12345667900.\n',
                       style: stlight.copyWith(

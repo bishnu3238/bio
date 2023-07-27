@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_lab/screens/my_points/my_points_class.dart';
 import '../../class/model/check_out_service/check_out_service.dart';
 import '../../screens/items/item_by_sorting.dart';
 import '../../class/user_services/auth_service.dart';
@@ -26,6 +27,7 @@ class UniversalLab extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => UserServices()),
         ChangeNotifierProvider(create: (context) => SortBarNotifier()),
         ChangeNotifierProvider(create: (context) => CheckOutService()),
+        ChangeNotifierProvider(create: (context) => MyPointsClass()),
       ],
       child: MaterialApp(
         title: 'Eazy Doctor',

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -109,7 +110,7 @@ class HttpServices {
     }
   }
 
-  Future getUserOrders() async {
+  Future<List<OrderModel>> getUserOrders() async {
     Uri url = Uri.parse(getUserOrdersApi);
     log("$url");
     try {
@@ -122,10 +123,12 @@ class HttpServices {
           return _context.read<Provide>().currentOrder =
               currentOrderFromJson(jsonData);
         }
+        throw const HttpException('List<OrderModel> getting error');
       });
     } catch (e) {
       log("api calling fails for getting marquee");
       log(e.toString());
+      throw Exception();
     }
   }
 

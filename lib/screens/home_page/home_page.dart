@@ -15,7 +15,8 @@ import 'sub_home_page/home/home.dart';
 import 'bottom_nav_bar/bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+   const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

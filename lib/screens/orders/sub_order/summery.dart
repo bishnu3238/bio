@@ -10,31 +10,32 @@ class Summery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.task_alt_rounded,
-            size: getProportionateScreenWidth(100),
-            color: kSuccess,
-          ),
-          gap(20),
-          Text(
-            "Your order will be confirmed ...",
-            style: stlight,
-          ),
-          gap(10),
-          Text(
-            "Please contact the administrator: $gPayNumber",
-            textAlign: TextAlign.center,
-            style: stlH4,
-          )
-        ],
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.task_alt_rounded,
+              size: getProportionateScreenWidth(100),
+              color: kSuccess,
+            ),
+            gap(20),
+            Text(
+              "Your order will be confirmed ...",
+              style: stlight,
+            ),
+            gap(10),
+            Text(
+              "Please contact the administrator\n $gPayNumber",
+              textAlign: TextAlign.center,
+              style: stlH4,
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

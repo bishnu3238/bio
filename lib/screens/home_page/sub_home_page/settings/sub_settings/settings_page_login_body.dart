@@ -7,8 +7,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:universal_lab/class/user_services/auth_service.dart';
 import '../../../../../class/app_constant.dart';
 import '../../../../../package/text_style.dart';
-import '../../../../my_points.dart';
-import '../../../../reviews.dart';
+import '../../../../my_points/my_points.dart';
+import '../../../../reviews/reviews.dart';
 import 'options_card.dart';
 
 class SettingPageLogInBody extends StatelessWidget {
