@@ -23,7 +23,8 @@ const String getProductMoreDetails = "$host/getProductDetails.php";
 const String submitBulkOrderApi = "$host/createBulkOrder.php";
 const String updateUserProfileApi = "$host/updateProfile.php";
 const String submitUserReviewApi = "$host/createUserReview.php";
-
+const String getDeliveryAddresses = "$host/get_delivery_address.php";
+const String checkPhoneNumberExistOrNot = "$host/check_phone_no.php";
 /// ----------------------------------------------------------------[parameters]
 const String params1 = "/?table_name";
 const String pCategory = "?category";

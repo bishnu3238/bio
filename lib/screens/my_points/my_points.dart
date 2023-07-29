@@ -20,7 +20,7 @@ class MyPoints extends StatelessWidget {
       appBar: const AppAppBar(
         title: "My Points",
         tPosition: false,
-        buttons: [UserIcon()],
+        buttons: [UserIcon(isHome: false,)],
       ),
       body: Consumer<MyPointsClass>(builder: (context, points, _) {
         return SingleChildScrollView(

@@ -30,7 +30,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: NestedScrollView(
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
-                return [const CheckOutAppBar(buttons: [UserIcon()]), const CheckOutProgressBar()];
+                return [const CheckOutAppBar(buttons: [UserIcon(isHome: false,)]), const CheckOutProgressBar()];
               },
               body: [
                 const CartBody(),

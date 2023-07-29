@@ -13,22 +13,22 @@ InputDecoration passwordDecoration(BuildContext context) {
     radius: 5,
     context: context,
     label: 'Password',
-    suffix: Consumer<Notifier>(
-      builder: (context, notify, _) {
-        var value = notify.obscureText;
+    suffix: Consumer<SignUp>(
+      builder: (context, state, _) {
+        var value = state.showPassword;
 
         return InkWell(
           child: Icon(
             value ? Icons.visibility_off : Icons.visibility,
             color: value ? kSuccess : kError,
           ),
-          onTap: () => notify.togglePasswordVisibility(),
+          onTap: () => state.togglePasswordVisibility(),
         );
       },
     ),
-    prefix: Consumer<Notifier>(
-      builder: (context, notify, _) {
-        var value = notify.obscureText;
+    prefix: Consumer<SignUp>(
+      builder: (context, state, _) {
+        var value = state.showPassword;
         return value
             ? const Icon(FontAwesomeIcons.lock)
             : const Icon(FontAwesomeIcons.lockOpen);

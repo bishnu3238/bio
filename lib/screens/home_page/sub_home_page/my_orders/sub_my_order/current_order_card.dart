@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_lab/class/app_constant.dart';
 import 'package:universal_lab/class/model/order/order_model.dart';
 import 'package:universal_lab/class/model/provider.dart';
-import 'package:universal_lab/package/custom_widgets/custom_image.dart';
 import 'package:universal_lab/screens/home_page/sub_home_page/settings/sub_settings/options_card.dart';
-
-import '../../../../../package/size_config.dart';
 import '../order_details/order_details.dart';
 import '../../../../../package/text_style.dart';
 import '../view_invoice/view_invoice.dart';
@@ -27,8 +24,8 @@ class CurrentOrderCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 3.0),
         child: OptionsCard(elevation: 5, listOfWidget: [
-          Text("Order No: ${currentOrder.invoiceId} ${currentOrder.id}"
-              .toUpperCase()),
+          Text("Order No: ${currentOrder.invoiceId}".toUpperCase(),
+              style: Theme.of(context).textTheme.titleSmall),
           Text(
             "Total Item Purchased: ${currentOrder.orderItems.length}",
             style: txStl(15, kGrey, null),

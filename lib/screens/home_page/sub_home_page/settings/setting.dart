@@ -11,9 +11,13 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Master.initialize(context);
-    return const Scaffold(
-      appBar: AppAppBar(title: "ACCOUNT", tPosition: false),
-      body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppAppBar(
+          title: "ACCOUNT",
+          icon: Icons.arrow_back,
+          tPosition: false,
+          todo: () => Navigator.pop(context)),
+      body: const SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [

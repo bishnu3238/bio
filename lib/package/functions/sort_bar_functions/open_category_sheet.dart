@@ -52,6 +52,7 @@ openCategorySheet(BuildContext context) {
                         onTap: () {
                           context.read<Provide>().itemsFromSearchType(
                               ItemSearchType.Category, categoryList[index].id);
+                          Navigator.of(context).pop(categoryList[index].name);
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10),

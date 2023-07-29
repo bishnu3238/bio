@@ -81,7 +81,7 @@ class SortBarNotifier extends ChangeNotifier {
       // break;
       case 2:
         // todo:
-      openCategorySheet(context);
+        openCategorySheet(context);
         break;
       case 3:
         // todo:
@@ -163,7 +163,6 @@ List<Map> _sortingButtons = [
   {"label": "Sort By", "icon": FontAwesomeIcons.arrowDownWideShort},
   {"label": "Flitter", "icon": FontAwesomeIcons.filter},
   {"label": "Category", "icon": FontAwesomeIcons.arrowDown},
-  {"label": "Brands", "icon": FontAwesomeIcons.brandsFontAwesome},
 ];
 
 List<Map> _filterList = [

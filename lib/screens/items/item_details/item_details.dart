@@ -77,7 +77,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                 const SliverAppBar(
                   floating: true,
                   snap: true,
-                  flexibleSpace: AppAppBar(buttons: [UserIcon()]),
+                  flexibleSpace: AppAppBar(buttons: [UserIcon(isHome: false)]),
                 ),
                 FutureBuilder(
                     future: getMoreDetails(),

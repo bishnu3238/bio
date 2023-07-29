@@ -40,7 +40,7 @@ class _ItemsBySortingState extends State<ItemsBySorting> {
         return Scaffold(
           appBar:  AppAppBar(
               icon: FontAwesomeIcons.angleLeft,
-              todo:()=> Navigator.pop(context), buttons: [const UserIcon()],),
+              todo:()=> Navigator.pop(context), buttons: const [UserIcon(isHome: false)],),
           body: NestedScrollView(
             headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
               return [

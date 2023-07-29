@@ -11,6 +11,7 @@ import 'package:universal_lab/class/widget_lavel_provider/notifier.dart';
 
 import '../../../../class/database/db.dart';
 import '../../../home_page/home_page.dart';
+import '../../forgot_password/forgot_password.dart';
 
 class Login {
   final loginFormKey = GlobalKey<FormState>();
@@ -35,29 +36,34 @@ class Login {
     return await http.post(
       url,
       body: {'mobile': phone.text, 'password': password.text},
-    ).then((value) {
-      if (value.statusCode == 200) {
-        var jsonData = jsonDecode(value.body);
+    ).then(
+      (value) {
+        if (value.statusCode == 200) {
+          var jsonData = jsonDecode(value.body);
 
-        log(jsonData.toString());
+          log(jsonData.toString());
 
-        if (jsonData['status'] == 400) throw Exception(jsonData['message']);
-        if (jsonData['status'] == 403) throw Exception(jsonData['message']);
+          if (jsonData['status'] == 400) throw Exception(jsonData['message']);
+          if (jsonData['status'] == 403) throw Exception(jsonData['message']);
 
-        UserModel user = auth.userModel = UserModel.fromMap(jsonData['data']);
-        auth.authStatus = AuthStatus.Login;
+          UserModel user = auth.userModel = UserModel.fromMap(jsonData['data']);
+          auth.authStatus = AuthStatus.Login;
 
-        DB().storeUserDataIntoLocal(jsonEncode(user.toMap()));
+          DB().storeUserDataIntoLocal(jsonEncode(user.toMap()));
 
-        notify.loading = false;
+          notify.loading = false;
 
-        Navigator.of(context).pop();
-        // Navigator.pushReplacement(
-        //     context, MaterialPageRoute(builder: (ctx) => const HomePage()));
-      } else {
-        auth.authStatus = AuthStatus.Logout;
-        notify.loading = false;
-      }
-    });
+          Navigator.of(context).pop();
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (ctx) => const HomePage()));
+        } else {
+          auth.authStatus = AuthStatus.Logout;
+          notify.loading = false;
+        }
+      },
+    );
   }
+
+  void openForgot(BuildContext ctx) => Navigator.of(ctx)
+      .push(MaterialPageRoute(builder: (ctx) => const ForgotPassword()));
 }

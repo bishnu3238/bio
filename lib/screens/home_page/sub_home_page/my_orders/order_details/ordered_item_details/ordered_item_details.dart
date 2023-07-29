@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:universal_lab/class/model/order/order_item_model.dart';
 import 'package:universal_lab/class/model/provider.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../../../../../class/model/product_master/items_model.dart';
 import '../../../../../../package/custom_widgets/custom_image.dart';
 import '../../../../../../package/custom_widgets/custom_rating_bar.dart';
+import '../../../../../reviews/submit_review.dart';
 
 class OrderedItemDetails extends StatelessWidget {
   final OrderItemModel orderItem;
@@ -22,7 +24,7 @@ class OrderedItemDetails extends StatelessWidget {
           icon: FontAwesomeIcons.angleLeft,
           todo: () => Navigator.of(context).pop(),
           title: orderItem.productName,
-          buttons: const [UserIcon()],
+          buttons: const [UserIcon(isHome: false)],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -40,7 +42,10 @@ class OrderedItemDetails extends StatelessWidget {
             width: double.infinity,
             child: Buttons(
               text: 'Give Review & Feed back',
-              onTap: () => openReviewSheet(context),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const SubmitReview()));
+              },
             ),
           )
         ]);
@@ -50,12 +55,33 @@ class OrderedItemDetails extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return Column(
-          children: [
-            CustomRatingBar(orderItem.toItemModel(context),
-                color: Colors.blueAccent, size: 20),
-          ],
-        );
+        return StatefulBuilder(builder: (context, setState) {
+          return Column(
+            children: [
+              const SizedBox(height: 20),
+              Expanded(
+                child: RatingBar.builder(
+                  itemCount: 5,
+                  minRating: 0.5,
+                  itemSize: 50,
+                  updateOnDrag: false,
+                  initialRating: 0.0,
+                  glow: false,
+                  direction: Axis.horizontal,
+                  wrapAlignment: WrapAlignment.start,
+                  onRatingUpdate: (_) {
+                    setState.call(() {});
+                  },
+                  ignoreGestures: true,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  itemBuilder: (context, _) => FaIcon(
+                      FontAwesomeIcons.solidStar,
+                      color: Colors.yellow.shade700),
+                ),
+              ),
+            ],
+          );
+        });
       },
     );
   }

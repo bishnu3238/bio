@@ -54,6 +54,8 @@ class _LogInState extends State<LogIn> {
         notify.loading = false;
         CustomSnackBar.showSnackBar('$e', kError);
       }
+    } else {
+      CustomSnackBar.showToast('Enter Valid Credentials', kDark);
     }
   }
 
@@ -69,7 +71,7 @@ class _LogInState extends State<LogIn> {
           color: const Color(0xFF2874F0),
           title: appName,
           icon: FontAwesomeIcons.xmark,
-          todo: () {},
+          todo: () => Navigator.pop(context),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -104,29 +106,38 @@ class _LogInState extends State<LogIn> {
                         login.phone.setText(number.number),
                   ),
                   gap(20),
-                  Consumer<Notifier>(builder: (BuildContext context, value, _) {
-                    return TextFormField(
-                      focusNode: login.passwordFocusNode,
-                      obscureText: value.obscureText,
-                      controller: login.password,
-                      onFieldSubmitted: (pass) => _logIn(),
-                      decoration: passwordDecoration(context),
-                    );
-                  }),
+
+                  Consumer<Notifier>(
+                    builder: (BuildContext context, value, _) {
+                      return TextFormField(
+                        focusNode: login.passwordFocusNode,
+                        obscureText: value.obscureText,
+                        controller: login.password,
+                        onFieldSubmitted: (pass) => _logIn(),
+                        decoration: passwordDecoration(context),
+                        validator: (value) => value!.isEmpty || value.length < 3
+                            ? "Please enter password *"
+                            : null,
+                      );
+                    },
+                  ),
                   gap(5),
                   Row(
                     children: [
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (ctx) => const ForgotPassword()));
-                          },
-                          child: Text(
-                            "forgot password ?",
-                            style: TextStyle(color: kDark.withOpacity(0.7)),
-                          ))
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (ctx) => const ForgotPassword(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "forgot password ?",
+                          style: TextStyle(color: kDark.withOpacity(0.7)),
+                        ),
+                      )
                     ],
                   ),
                   gap(5),
@@ -138,9 +149,10 @@ class _LogInState extends State<LogIn> {
                   const Terms(),
                   gap(50),
                   LoadingButton(
-                      color: const Color(0xFF2874F0),
-                      text: 'Log In',
-                      onPressed: () => _logIn()),
+                    color: const Color(0xFF2874F0),
+                    text: 'Log In',
+                    onPressed: () => _logIn(),
+                  ),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -151,3 +163,25 @@ class _LogInState extends State<LogIn> {
     );
   }
 }
+
+// class _PasswordField extends StatelessWidget {
+//   const _PasswordField();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return   Consumer<Login>(
+//       builder: (BuildContext context, login, _) {
+//         return TextFormField(
+//           focusNode: login.passwordFocusNode,
+//           obscureText: login.obscureText,
+//           controller: login.password,
+//           onFieldSubmitted: (pass) => _logIn(),
+//           decoration: passwordDecoration(context),
+//           validator: (value) => value!.isEmpty || value.length < 3
+//               ? "Please enter password *"
+//               : null,
+//         );
+//       },
+//     );
+//   }
+// }

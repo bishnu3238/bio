@@ -18,7 +18,7 @@ class Notifications extends StatelessWidget {
       appBar: const AppAppBar(
         title: "Messages",
         tPosition: false,
-        buttons: [UserIcon()],
+        buttons: [UserIcon(isHome: false)],
       ),
       body: FutureBuilder(
           future: Future.value(true),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,6 +19,8 @@ import '../database/db.dart';
 import '../model/user/user_model.dart' as u;
 import '../widget_lavel_provider/notifier.dart';
 import 'package:http/http.dart' as http;
+
+typedef CodeSend = Function(String id, int? token);
 
 class AuthService extends ChangeNotifier {
   AuthStatus _authStatus = AuthStatus.Logout;
@@ -113,10 +116,10 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<bool> signOut() async {
-
     try {
       authStatus = AuthStatus.Logout;
       DB().removeUserData();
+      userModel = u.UserModel.empty();
       await auth.signOut();
       notifyListeners();
       return true;
@@ -125,17 +128,18 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future sendVerificationCode(String phone, [int? resend]) async {
+  Future sendVerificationCode(String phone, CodeSend codeSend,
+      [int? resend]) async {
     var phoneNumber = "+91 ${phone.replaceAll(RegExp(r'[^\d]'), '')}";
 
-    log('$phoneNumber $resendToken "" $_resendToken "" $resend');
+    log('$phoneNumber $resendToken $resend');
 
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       forceResendingToken: resend,
 
       // static verification complete;
-      verificationCompleted: (PhoneAuthCredential credential) async {
+      verificationCompleted: (PhoneAuthCredential credential) {
         log("verification Code: ${credential.smsCode}");
       },
 
@@ -148,18 +152,20 @@ class AuthService extends ChangeNotifier {
       },
 
       // sms code send to user mobile;
-      codeSent: (String verificationId, int? resendToken) {
-        _verificationId = verificationId;
-        _resendToken = resendToken;
-        _context.read<Notifier>().loading = false;
-        Otp().thisPage(_context, verificationId, resendToken!);
-        notifyListeners();
-      },
+      codeSent: codeSend,
+
+      //     (String verificationId, int? resendToken) {
+      //   _verificationId = verificationId;
+      //   _resendToken = resendToken;
+      //   _context.read<Notifier>().loading = false;
+      //   Otp().thisPage(_context, verificationId, resendToken!);
+      //   notifyListeners();
+      // },
 
       // time out;
       codeAutoRetrievalTimeout: (String verificationId) {
         _verificationId = verificationId;
-        Otp().setCredential(verificationId);
+        // Otp().setCredential(verificationId);
         log("CODEAUTORETRIEVALTIMEOUT");
       },
 
@@ -169,25 +175,52 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<AuthStatus> verifyCode(String verifyId, String smsCode) async {
-    _context.read<Notifier>().loading = true;
-
     final PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verifyId, smsCode: smsCode);
+      verificationId: verifyId,
+      smsCode: smsCode,
+    );
 
     return await auth.signInWithCredential(credential).then((userCredential) {
       if (userCredential.user != null) {
         authStatus = AuthStatus.Login;
-        user = u.User.fromFirebase(userCredential.user!); // TODO: remove this;
-        _context.read<Notifier>().loading = false;
-        notifyListeners();
         return authStatus;
       }
-      _context.read<Notifier>().loading = false;
       throw Exception('Otp verification failed');
     }).catchError((e) {
-      _context.read<Notifier>().loading = false;
       throw Exception('$e');
     });
+  }
+
+  Future<bool> signUp(SignUpData data) async {
+    Uri url = Uri.parse(signUpApi);
+    log(url.toString());
+
+    return await http.post(url, body: {
+      'name': data.name,
+      'mobile': data.phone,
+      'email': data.email,
+      'password': data.password,
+      'referal_code': data.referralCode,
+    }).then(
+      (value) {
+        log("${value.statusCode}");
+        if (value.statusCode == 200) {
+          var jsonData = jsonDecode(value.body);
+          log(jsonData.toString());
+          if (jsonData['status'] == 400) {
+            throw Exception(jsonData['message']);
+          }
+
+          // when signup successful
+          userModel = u.UserModel.fromMap(jsonData['data']);
+
+          DB().storeUserDataIntoLocal(jsonEncode(userModel.toMap()));
+          return true;
+        } else {
+          throw HttpException(value.statusCode.toString());
+        }
+      },
+    );
   }
 
   Future<void> emailPasswordSignIn(email, password) async {
@@ -253,7 +286,7 @@ class AuthService extends ChangeNotifier {
   }
 
   void resendOtp(String phone, int? resend) async {
-    await sendVerificationCode(phone, resend);
+    await sendVerificationCode(phone, (id, token) {}, resend);
   }
 
   emailSignIn(String email, String password) {

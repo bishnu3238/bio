@@ -26,7 +26,9 @@ class ItemsPage extends StatelessWidget {
         CategoryModel category = provide.getCategoryFromId(id);
         List<ItemModel> items = provide.filterItems;
         return Scaffold(
-          appBar: const AppAppBar(buttons: [UserIcon()],),
+          appBar: const AppAppBar(
+            buttons: [UserIcon(isHome: false)],
+          ),
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -42,7 +44,7 @@ class ItemsPage extends StatelessWidget {
           //   backgroundColor: Colors.lightBlueAccent.shade700,
           //   child: const FaIcon(FontAwesomeIcons.magnifyingGlass, size: 20),
           // ),
-          bottomNavigationBar:const  BottomNavBar(isHome: false),
+          bottomNavigationBar: const BottomNavBar(isHome: false),
         );
       },
     );

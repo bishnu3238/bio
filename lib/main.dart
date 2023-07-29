@@ -13,8 +13,6 @@ void main() async {
   DB.initHiveDatabase();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await  getItInitialize();
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => runApp(
       Phoenix(
@@ -24,11 +22,10 @@ void main() async {
   );
 }
 
-GetIt getIt = GetIt.instance;
-
-Future <void> getItInitialize()async{
-
-
-
-
-}
+/// work to do,
+/// submit rating and review,
+/// forgot password,
+/// point's management,
+/// redeem points,
+/// integrate payment gateway
+///

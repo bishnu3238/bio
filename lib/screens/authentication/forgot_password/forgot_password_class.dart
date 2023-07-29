@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class ForgotPasswordClass {
   final TextEditingController phone = TextEditingController();
-final password = TextEditingController();
+  final password = TextEditingController();
   final bool isAbelToForgotPassword;
   final bool isLoading;
   ForgotPasswordClass(
@@ -18,7 +18,7 @@ final password = TextEditingController();
       ForgotPasswordClass(
           isLoading: isLoading ?? this.isLoading,
           isAbelToForgotPassword:
-          isAbelToForgotPassword ?? this.isAbelToForgotPassword);
+              isAbelToForgotPassword ?? this.isAbelToForgotPassword);
 
   Future<bool> checkPhoneNoExistOrNot(String uri) async {
     copyWith(isLoading: true);
@@ -31,7 +31,6 @@ final password = TextEditingController();
           copyWith(isLoading: false, isAbelToForgotPassword: true);
           return true;
         } else {
-
           copyWith(isLoading: false, isAbelToForgotPassword: false);
 
           return false;

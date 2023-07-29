@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart' as u;
 import 'package:flutter/cupertino.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:universal_lab/methods/static_methods.dart';
+import 'package:equatable/equatable.dart';
 
 class User extends ChangeNotifier {
   late String uid;
@@ -81,7 +81,7 @@ class User extends ChangeNotifier {
 //</editor-fold>
 }
 
-class UserModel {
+class UserModel extends Equatable {
   final String id, name, mobile_no, password, job_role, referal_code, status;
   final String? email, referal_by, image, gender;
   final DateTime date, time;
@@ -158,40 +158,16 @@ class UserModel {
     };
   }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserModel &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name &&
-          mobile_no == other.mobile_no &&
-          password == other.password &&
-          job_role == other.job_role &&
-          referal_code == other.referal_code &&
-          status == other.status &&
-          email == other.email &&
-          referal_by == other.referal_by &&
-          image == other.image &&
-          gender == other.gender &&
-          date == other.date &&
-          time == other.time;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      name.hashCode ^
-      mobile_no.hashCode ^
-      password.hashCode ^
-      job_role.hashCode ^
-      referal_code.hashCode ^
-      status.hashCode ^
-      email.hashCode ^
-      referal_by.hashCode ^
-      image.hashCode ^
-      gender.hashCode ^
-      date.hashCode ^
-      time.hashCode;
+  factory UserModel.empty() => UserModel(
+      id: '',
+      name: '',
+      mobile_no: '',
+      password: '',
+      job_role: '',
+      referal_code: '',
+      status: '',
+      date: DateTime(2023, 07, 05),
+      time: DateTime.now());
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -210,6 +186,23 @@ class UserModel {
       time: convertTime(map['time']),
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        mobile_no,
+        password,
+        job_role,
+        referal_code,
+        status,
+        email,
+        referal_by,
+        image,
+        gender,
+        date,
+        time
+      ];
 
 //</editor-fold>
 }

@@ -40,7 +40,7 @@ class ItemsByType extends StatelessWidget {
           appBar: AppAppBar(
             title: title,
             tPosition: false,
-            buttons: [const UserIcon()],
+            buttons: const [  UserIcon(isHome: false)],
           ),
           body: NestedScrollView(
             headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {

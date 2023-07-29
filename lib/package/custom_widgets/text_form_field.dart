@@ -39,11 +39,13 @@ class CustomTextField extends StatelessWidget {
       cursorColor: Colors.blue,
       decoration: decoration ??
           InputDecoration(
+            prefixIconConstraints: const BoxConstraints(
+                maxHeight: 48, maxWidth: 48, minHeight: 10, minWidth: 15),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
             hintText: hintText,
             prefixIcon: prefixIcon == null
-                ? const SizedBox()
+                ? const SizedBox(width: 10, height: 10)
                 : Icon(prefixIcon, color: Colors.blueGrey[800], size: 20),
             isDense: true,
             enabled: true,

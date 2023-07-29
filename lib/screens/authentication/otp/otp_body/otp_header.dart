@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/screens/authentication/sign_up/sign_up.dart';
 
 extension PhoneNumberHide on String {
   String get phoneNumberHide {
+    if (length == 0) return "";
     final maskedLength = length - 2;
     final maskedCharacters = 'x' * maskedLength;
     final maskedPhoneNo = replaceRange(1, maskedLength, maskedCharacters);
@@ -51,7 +53,10 @@ class OtpHeader extends StatelessWidget {
             gap(10, 1),
             InkWell(
               onTap: () {
-                //edit phone no;
+
+
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (ctx) => const SignupPage()));
               },
               child: Text(
                 "Edit",

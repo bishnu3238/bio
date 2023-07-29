@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:universal_lab/class/model/product_master/catergory_model.dart';
 import 'package:universal_lab/class/model/provider.dart';
+import 'package:universal_lab/class/model/user/user_model.dart';
 import 'package:universal_lab/class/user_services/auth_service.dart';
 
 import '../../api/api_urls.dart';
@@ -110,9 +111,13 @@ class HttpServices {
     }
   }
 
-  Future<List<OrderModel>> getUserOrders() async {
+  Future<List<OrderModel?>> getUserOrders() async {
     Uri url = Uri.parse(getUserOrdersApi);
     log("$url");
+    if (_context.read<AuthService>().userModel.id.isEmpty) {
+      _context.read<Provide>().currentOrder = [];
+      return [];
+    }
     try {
       return await http.post(url, body: {
         'user_id': _context.read<AuthService>().userModel.id
@@ -126,7 +131,7 @@ class HttpServices {
         throw const HttpException('List<OrderModel> getting error');
       });
     } catch (e) {
-      log("api calling fails for getting marquee");
+      log("api calling fails for getting order details");
       log(e.toString());
       throw Exception();
     }
@@ -136,13 +141,13 @@ class HttpServices {
     Uri url = Uri.parse(getProductMoreDetails);
     log("$url");
     try {
-   return    await http.post(url, body: {'pro_id': item.id}).then((value) {
+      return await http.post(url, body: {'pro_id': item.id}).then((value) {
         if (value.statusCode == 200) {
           log(value.body);
           Map jsonData = jsonDecode(value.body);
           return jsonData;
         }
-        return  null;
+        return null;
       });
     } catch (e) {
       log("api calling fails for getting more product details ");

@@ -28,7 +28,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         icon: Icons.keyboard_arrow_left_sharp,
         todo: () => Navigator.of(context).pop(),
         buttons: const [
-          UserIcon(),
+          UserIcon(isHome: false),
         ],
       ),
       body: ListView.builder(

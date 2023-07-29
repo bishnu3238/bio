@@ -7,10 +7,11 @@ import 'package:universal_lab/class/model/user/user_model.dart';
 import 'package:universal_lab/class/user_services/auth_service.dart';
 
 import '../../../../class/widget_lavel_provider/notifier.dart';
+import '../../sign_up/class/sign_up_class.dart';
 import '../class/otp_class.dart';
 
 class ResendOtp extends StatefulWidget {
-  final UserModel user;
+  final SignUpData user;
   final int? resendToken;
 
   const ResendOtp(this.user, {Key? key, this.resendToken}) : super(key: key);
@@ -55,11 +56,9 @@ class _ResendOtpState extends State<ResendOtp> {
     var auth = context.read<AuthService>();
     setState(() => _resendTimer = 60);
     startTimer();
-    context.read<Notifier>().loading = true;
-    try {
-      Otp().resendOtp(auth, widget.user.mobile_no, widget.resendToken);
+     try {
+      Otp().resendOtp(auth, widget.user.phone, widget.resendToken);
     } catch (e) {
-      context.read<Notifier>().loading = false;
 
       log("Stop Timer");
       log(e.toString());

@@ -7,6 +7,12 @@ class TermsAndCondition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(appBar: SimpleAppBar());
+    return Scaffold(
+      appBar: SimpleAppBar(
+        icon: Icons.arrow_back_ios,
+        todo: () => Navigator.of(context).pop(),
+        title: 'Terms & Conditions',
+      ),
+    );
   }
 }

@@ -15,7 +15,8 @@ var img =
     "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80";
 
 class UserIcon extends StatefulWidget {
-  const UserIcon({Key? key}) : super(key: key);
+  final bool isHome;
+  const UserIcon({Key? key, this.isHome = true}) : super(key: key);
 
   @override
   State<UserIcon> createState() => _UserIconState();
@@ -57,9 +58,13 @@ class _UserIconState extends State<UserIcon> {
         } else {
           return IconButton(
             onPressed: () {
+              if (widget.isHome) {
+                context.read<Notifier>().navIndex = 3;
+                return;
+              }
               context.read<Notifier>().navIndex = 3;
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (ctx) => HomePage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (ctx) => const HomePage()));
             },
             icon: Icon(
               FontAwesomeIcons.solidUser,

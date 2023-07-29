@@ -9,6 +9,7 @@ import '../../class/widget_lavel_provider/notifier.dart';
 
 import '../../class/model/cart/cart.dart';
 import '../../class/model/provider.dart';
+import '../authentication/sign_up/class/sign_up_class.dart';
 import 'intro.dart';
 import '../../package/app_theme.dart';
 import '../../class/widget_lavel_provider/sort_bar_notifier.dart';
@@ -21,6 +22,7 @@ class UniversalLab extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Notifier()),
+        ChangeNotifierProvider(create: (_) => SignUp()),
         ChangeNotifierProvider(create: (context) => Provide()),
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => Cart()),

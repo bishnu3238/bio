@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:universal_lab/class/app_constant.dart';
+import 'package:universal_lab/class/enums.dart';
+import 'package:universal_lab/class/user_services/auth_service.dart';
 import 'package:universal_lab/package/custom_snack_bar.dart';
 import 'package:universal_lab/package/custom_widgets/app_bars/app_bar.dart';
 import 'package:universal_lab/package/custom_widgets/user_icon.dart';
@@ -51,10 +54,13 @@ class _MyOrdersState extends State<MyOrders> with TickerProviderStateMixin {
         tPosition: false,
         buttons: const [UserIcon()],
         tabBarHeight: kToolbarHeight * 2,
-        tabBar: TabBar(controller: _tabController, tabs: const [
-          Tab(child: Text("Current Order")),
-          Tab(child: Text("History"))
-        ]),
+        tabBar: TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(child: Text("Current Order")),
+            Tab(child: Text("History"))
+          ],
+        ),
       ),
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
@@ -67,13 +73,20 @@ class _MyOrdersState extends State<MyOrders> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kDBlue,
         onPressed: () {
+          AuthStatus status = context.read<AuthService>().authStatus;
           startRotation();
+          status == AuthStatus.Login ? null : stopRotation();
 
-          orderFunction(context).then((value) {
-            stopRotation();
-            CustomSnackBar.showToast(
-                'Updated', kDark.withOpacity(0.5), ToastGravity.BOTTOM);
-          });
+          status == AuthStatus.Login
+              ? orderFunction(context).then((value) {
+                  stopRotation();
+                  CustomSnackBar.showToast(
+                    'Updated',
+                    kDark.withOpacity(0.5),
+                    ToastGravity.BOTTOM,
+                  );
+                })
+              : CustomSnackBar.showToast('You are not login', kDBlue);
         },
         child: RotationTransition(
           turns: _controller,

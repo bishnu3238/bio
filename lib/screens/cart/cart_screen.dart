@@ -16,7 +16,7 @@ class CartScreen extends StatelessWidget {
     return const Scaffold(
       appBar: AppAppBar(title: "Cart", tPosition: false, buttons: [
         // PointIcon(),
-        UserIcon()
+        UserIcon(isHome: false)
       ]),
       body: CartBody(),
       bottomNavigationBar: CheckoutCard(),
